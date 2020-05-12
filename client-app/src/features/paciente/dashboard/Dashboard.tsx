@@ -1,11 +1,9 @@
 import React from 'react'
 
-const PacienteForm = () => {
+export const Dashboard = () => {
     return (
         <div>
-            
+            Ola
         </div>
     )
 }
-
-export default PacienteForm;

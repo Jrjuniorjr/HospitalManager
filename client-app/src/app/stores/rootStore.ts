@@ -1,14 +1,20 @@
+import UserStore from "./userStore";
 import { createContext } from "react";
 import { configure } from "mobx";
-import PacienteStore from "./pacienteStore";
+import CommonStore from "./commonStore";
+import ModalStore from "./modalStore";
 
 configure({ enforceActions: "always" });
 
 export class RootStore {
-    pacienteStore: PacienteStore;
+    userStore: UserStore;
+    commonStore: CommonStore;
+    modalStore: ModalStore;
 
-    constructor(){
-        this.pacienteStore = new PacienteStore(this);
+    constructor() {
+        this.userStore = new UserStore(this)
+        this.commonStore = new CommonStore(this);
+        this.modalStore = new ModalStore(this);
     }
 
 }
