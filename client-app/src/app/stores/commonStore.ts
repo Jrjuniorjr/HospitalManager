@@ -15,15 +15,31 @@ export default class CommonStore {
                 }else{
                     window.localStorage.removeItem("jwt");
                 }
+
+            }
+        )
+        reaction(
+            () => this.username,
+            username => {
+                if(username){
+                    window.localStorage.setItem("username", username);
+                }else{
+                    window.localStorage.removeItem("username");
+                }
             }
         )
     }
 
     @observable token: string | null = window.localStorage.getItem("jwt");
+    @observable username: string | null = window.localStorage.getItem("username");
     @observable appLoaded = false;
 
     @action setToken = (token: string | null) => {
         this.token = token;
+    }
+
+    @action setUsername = (username: string | null) => {
+        this.username = username; 
     }
 
     @action setAppLoaded = () => {

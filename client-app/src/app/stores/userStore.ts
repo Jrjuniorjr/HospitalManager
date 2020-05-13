@@ -12,6 +12,7 @@ export default class UserStore {
   }
 
   @observable user: IUser | null = null;
+  @observable username: string | null = null;
 
   @computed get isLoggedIn() {
     return !!this.user;
@@ -25,6 +26,7 @@ export default class UserStore {
       });
       console.log(user);
       this.rootStore.commonStore.setToken(user.token);
+      this.rootStore.commonStore.setUsername(user.username);
       this.rootStore.modalStore.closeModal();
       history.push("/dashboard");
     } catch (error) {
@@ -36,27 +38,24 @@ export default class UserStore {
     try {
       values.roles = ["ROLE_USER"];
       const user = await agent.User.register(values);
+      //perguntar
       this.rootStore.commonStore.setToken(user.token);
+
       this.rootStore.modalStore.closeModal();
-      history.push("/dashboard")
+      history.push("/dashboard");
     } catch (error) {
       throw error;
     }
-  }
+  };
 
-  @action getUser = async () => {
-    try {
-      const user = await agent.User.current();
-      runInAction(() => {
-        this.user = user;
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  @action getUsername = async () => {
+    this.username = window.localStorage.getItem("username");
   };
 
   @action logout = () => {
     this.rootStore.commonStore.setToken(null);
+    this.rootStore.commonStore.setUsername(null);
+    this.username = null;
     this.user = null;
     history.push("/");
   };

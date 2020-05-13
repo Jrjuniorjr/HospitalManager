@@ -6,7 +6,7 @@ import LoginForm from "../user/LoginForm";
 
 const HomePage = () => {
   const rootStore = useContext(RootStoreContext);
-  const { isLoggedIn, user } = rootStore.userStore;
+  const { isLoggedIn, user, username} = rootStore.userStore;
   const {openModal} = rootStore.modalStore;
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
@@ -25,7 +25,7 @@ const HomePage = () => {
             <Header
               as="h2"
               inverted
-              content={`Welcome back ${user.username}`}
+              content={`Welcome back ${username}`}
             />
             <Button as={Link} to="/dashboard" size="huge" inverted>
               Go to HospitalManager

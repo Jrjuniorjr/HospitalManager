@@ -20,16 +20,16 @@ import { Dashboard } from "../../features/paciente/dashboard/Dashboard";
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
   const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
-  const {getUser} = rootStore.userStore;
+  const {getUsername} = rootStore.userStore;
 
   useEffect(() =>{
     if(token){
-      getUser().finally(() => setAppLoaded());
+      getUsername().finally(() => setAppLoaded());
     }
     else{
       setAppLoaded();
     }
-  }, [getUser, setAppLoaded, token])
+  }, [getUsername, setAppLoaded, token])
 
   if(!appLoaded){
     return <LoadingComponent content="Loading app..."/>
