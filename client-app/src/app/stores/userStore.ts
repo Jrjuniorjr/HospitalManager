@@ -37,12 +37,10 @@ export default class UserStore {
   @action register = async (values: IUserFormValues) => {
     try {
       values.roles = ["ROLE_USER"];
-      const user = await agent.User.register(values);
-      //perguntar
-      this.rootStore.commonStore.setToken(user.token);
+      await agent.User.register(values);
 
       this.rootStore.modalStore.closeModal();
-      history.push("/dashboard");
+      history.push("/");
     } catch (error) {
       throw error;
     }
