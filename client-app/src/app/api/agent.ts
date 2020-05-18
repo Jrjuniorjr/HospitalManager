@@ -48,10 +48,9 @@ const requests = {
 
 
 const User = {
-  current: (): Promise<IUser> => requests.get("/user"),
   login: (user: IUserFormValues): Promise<IUser> =>
     requests.post("/auth/signin", user),
-  register: (user: IUserFormValues): Promise<IUser> =>
+  register: (user: IUserFormValues) =>
     requests.post("/auth/signup", user),
 };
 
