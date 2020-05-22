@@ -2,8 +2,9 @@ import axios, { AxiosResponse } from "axios";
 import { history } from "../..";
 import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
+import { IPaciente } from "../models/paciente";
 
-axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com/api";
+axios.defaults.baseURL = "https://crud-paciente.herokuapp.com";
 
 axios.interceptors.request.use(
   (config) => {
@@ -54,6 +55,16 @@ const User = {
     requests.post("/auth/signup", user),
 };
 
+const Paciente = {
+  list: (): Promise<IPaciente[]> => requests.get("/paciente/listarPacientes"),
+  details: (id: number) => requests.get(`/paciente/consultarPaciente/${id}`),
+  create: (paciente: IPaciente) => requests.post("/paciente/cadastrarPaciente", paciente),
+  update: (paciente: IPaciente) =>
+  requests.put("/paciente/editarPaciente", paciente),
+  delete: (id: number) => requests.del(`/paciente/removerPaciente/${id}`),
+};
+
 export default {
   User,
+  Paciente,
 };
