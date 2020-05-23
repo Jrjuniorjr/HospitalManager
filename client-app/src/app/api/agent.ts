@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
 import { IPaciente } from "../models/paciente";
 
-axios.defaults.baseURL = "https://crud-paciente.herokuapp.com";
+axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
 
 axios.interceptors.request.use(
   (config) => {
@@ -30,7 +30,7 @@ axios.interceptors.response.use(undefined, (error) => {
   if (error.response.status === 404) {
     history.push("/notfound");
   }
-  
+
   if (error.response.status === 500) {
     toast.error("Server error - check the terminal for more info!");
   }
@@ -39,7 +39,6 @@ axios.interceptors.response.use(undefined, (error) => {
 
 const responseBody = (responseBody: AxiosResponse) => responseBody.data;
 
-
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
   post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
@@ -47,20 +46,19 @@ const requests = {
   del: (url: string) => axios.delete(url).then(responseBody),
 };
 
-
 const User = {
   login: (user: IUserFormValues): Promise<IUser> =>
-    requests.post("/auth/signin", user),
-  register: (user: IUserFormValues) =>
-    requests.post("/auth/signup", user),
+    requests.post("/api/auth/signin", user),
+  register: (user: IUserFormValues) => requests.post("/api/auth/signup", user),
 };
 
 const Paciente = {
   list: (): Promise<IPaciente[]> => requests.get("/paciente/listarPacientes"),
   details: (id: number) => requests.get(`/paciente/consultarPaciente/${id}`),
-  create: (paciente: IPaciente) => requests.post("/paciente/cadastrarPaciente", paciente),
+  create: (paciente: IPaciente) =>
+    requests.post("/paciente/cadastrarPaciente", paciente),
   update: (paciente: IPaciente) =>
-  requests.put("/paciente/editarPaciente", paciente),
+    requests.put("/paciente/editarPaciente", paciente),
   delete: (id: number) => requests.del(`/paciente/removerPaciente/${id}`),
 };
 

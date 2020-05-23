@@ -10,50 +10,57 @@ import {
 } from "react-router-dom";
 import HomePage from "../../features/home/HomePage";
 import NotFound from "./NotFound";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import LoginForm from "../../features/user/LoginForm";
 import { RootStoreContext } from "../stores/rootStore";
 import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
-import { Dashboard } from "../../features/paciente/dashboard/DashBoard";
 import PacienteDashboard from "../../features/paciente/dashboard/PacienteDashboard";
 import PacienteForm from "../../features/paciente/form/PacienteForm";
 import MessageExampleWarning from "../common/message/MessageExampleWarning";
+import { Dashboard } from "../../features/dashboard/Dashboard";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
-  const {setAppLoaded, token, appLoaded} = rootStore.commonStore;
-  const {getUsername} = rootStore.userStore;
+  const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
+  const { getUsername } = rootStore.userStore;
 
-  useEffect(() =>{
-    if(token){
+  useEffect(() => {
+    if (token) {
       getUsername().finally(() => setAppLoaded());
-    }
-    else{
+    } else {
       setAppLoaded();
     }
-  }, [getUsername, setAppLoaded, token])
+  }, [getUsername, setAppLoaded, token]);
 
-  if(!appLoaded){
-    return <LoadingComponent content="Loading app..."/>
+  if (!appLoaded) {
+    return <LoadingComponent content="Loading app..." />;
   }
 
   return (
     <Fragment>
-      <ModalContainer/>
+      <ModalContainer />
       <Route exact path="/" component={HomePage} />
       <Route
         path={"/(.+)"}
         render={() => (
           <Fragment>
-            <ToastContainer position="bottom-right"/>
+            <ToastContainer position="bottom-right" />
             <NavBar />
             <Container style={{ marginTop: "7em" }}>
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/login" component={LoginForm} />
-                <Route exact path="/pacienteDashboard" component={PacienteDashboard} />
-                <Route exact path="/messageDelete/:id" component={MessageExampleWarning} />
+                <Route
+                  exact
+                  path="/pacienteDashboard"
+                  component={PacienteDashboard}
+                />
+                <Route
+                  exact
+                  path="/messageDelete/:id"
+                  component={MessageExampleWarning}
+                />
                 <Route
                   key={location.key}
                   path={["/createPaciente", "/manage/:id"]}
