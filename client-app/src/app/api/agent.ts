@@ -3,6 +3,7 @@ import { history } from "../..";
 import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
 import { IPaciente } from "../models/paciente";
+import { IVaga } from "../models/vaga";
 
 axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
 
@@ -62,7 +63,16 @@ const Paciente = {
   delete: (id: number) => requests.del(`/paciente/removerPaciente/${id}`),
 };
 
+const Vaga = {
+  list: (): Promise<IVaga[]> => requests.get("/vaga/listar"),
+  details: (id: number) => requests.get(`/vaga/consultar${id}`),
+  create: (obj: IVaga) => requests.post("/vaga/cadastrar", obj),
+  update: (obj: IVaga) => requests.put("/vaga/editar", obj),
+  delete: (id: number) => requests.del(`/vaga/remover/${id}`),
+};
+
 export default {
   User,
   Paciente,
+  Vaga,
 };

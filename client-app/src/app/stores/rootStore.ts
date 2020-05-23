@@ -4,22 +4,24 @@ import { configure } from "mobx";
 import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import PacienteStore from "./pacienteStore";
+import VagaStore from "./vagaStore";
 
 configure({ enforceActions: "always" });
 
 export class RootStore {
-    userStore: UserStore;
-    commonStore: CommonStore;
-    modalStore: ModalStore;
-    pacienteStore: PacienteStore;
+  userStore: UserStore;
+  commonStore: CommonStore;
+  modalStore: ModalStore;
+  pacienteStore: PacienteStore;
+  vagaStore: VagaStore;
 
-    constructor() {
-        this.userStore = new UserStore(this)
-        this.commonStore = new CommonStore(this);
-        this.modalStore = new ModalStore(this);
-        this.pacienteStore = new PacienteStore(this);
-    }
-
+  constructor() {
+    this.userStore = new UserStore(this);
+    this.commonStore = new CommonStore(this);
+    this.modalStore = new ModalStore(this);
+    this.pacienteStore = new PacienteStore(this);
+    this.vagaStore = new VagaStore(this);
+  }
 }
 
-export const RootStoreContext = createContext(new RootStore);
+export const RootStoreContext = createContext(new RootStore());
