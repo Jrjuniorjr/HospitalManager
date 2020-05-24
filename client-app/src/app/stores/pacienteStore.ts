@@ -5,6 +5,7 @@ import { IPaciente } from "../models/paciente";
 import { history } from "../..";
 import { toast } from "react-toastify";
 import { SyntheticEvent } from "react";
+import { IUser } from "../models/user";
 
 export default class PacienteStore {
   rootStore: RootStore;
@@ -21,11 +22,14 @@ export default class PacienteStore {
 
   @action setLoading = (flag: boolean) => {
     this.loading = flag;
-  }
+  };
   @action loadPacientes = async () => {
     this.loadingInitial = true;
+    this.pacienteRegistry = new Map();
     try {
-      const pacientes = await agent.Paciente.list();
+      const pacientes = await agent.Paciente.list(
+        parseInt(window.localStorage.getItem("id")!)
+      );
       runInAction("loading pacientes", () => {
         pacientes.forEach((paciente) => {
           this.pacienteRegistry.set(paciente.id, paciente);
@@ -61,7 +65,19 @@ export default class PacienteStore {
   @action createPaciente = async (paciente: IPaciente) => {
     this.submitting = true;
     try {
-      await agent.Paciente.create(paciente);
+      let userTemp: IUser = {
+        token: "",
+        type: "",
+        id: parseInt(window.localStorage.getItem("id")!),
+        username: "",
+        email: "",
+        roles: []
+      };
+      let pacienteTemp = {
+        ...paciente,
+        user: userTemp
+      };
+      await agent.Paciente.create(pacienteTemp);
       runInAction("creating paciente", () => {
         this.submitting = false;
       });
@@ -91,21 +107,19 @@ export default class PacienteStore {
     }
   };
 
-  @action deletePaciente = async (
-        id: number
-      ) => {
-        this.submitting = true;
-        try {
-          await agent.Paciente.delete(id);
-          runInAction("deleting paciente", () => {
-            this.pacienteRegistry.delete(id);
-            this.submitting = false;
-          });
-        } catch (error) {
-          runInAction("delete paciente error", () => {
-            this.submitting = false;
-          });
-          console.log(error);
-        }
-      }; 
+  @action deletePaciente = async (id: number) => {
+    this.submitting = true;
+    try {
+      await agent.Paciente.delete(id);
+      runInAction("deleting paciente", () => {
+        this.pacienteRegistry.delete(id);
+        this.submitting = false;
+      });
+    } catch (error) {
+      runInAction("delete paciente error", () => {
+        this.submitting = false;
+      });
+      console.log(error);
+    }
+  };
 }

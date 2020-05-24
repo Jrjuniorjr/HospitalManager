@@ -18,6 +18,8 @@ const NavBar: React.FC = () => {
           />
           HospitalManager
         </Menu.Item>
+        
+        <Menu.Item name="Dashboard" as={NavLink} to="/dashboard" />
         <Menu.Item name="Pacientes" as={NavLink} to="/pacienteDashboard" />
         <Menu.Item name="Vagas" as={NavLink} to="/vagaDashboard" />
         {username && (

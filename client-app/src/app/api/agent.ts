@@ -53,7 +53,7 @@ const User = {
 };
 
 const Paciente = {
-  list: (): Promise<IPaciente[]> => requests.get("/paciente/listarPacientes"),
+  list: (id: number): Promise<IPaciente[]> => requests.get(`/paciente/listarPacientes/${id}`),
   details: (id: number) => requests.get(`/paciente/consultarPaciente/${id}`),
   create: (paciente: IPaciente) =>
     requests.post("/paciente/cadastrarPaciente", paciente),
