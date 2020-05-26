@@ -1,22 +1,22 @@
 export interface IVaga {
   id: number | null;
-  numeroQuarto: number | null;
-  situacao: situacaoEnum | null;
-  idPaciente: number | null;
-  idPerfilHospital: number | null;
+  numeroQuarto: string;
+  situacao: string;
+  idPaciente: string;
+  idPerfilHospital: string;
 }
 
-export enum situacaoEnum {
+export enum SituacaoEnum {
   OCUPADO = "ocupado",
   LIVRE = "livre",
 }
 
 export class VagasFormValues implements IVaga {
   id: number | null = null;
-  numeroQuarto: number | null = null;
-  situacao: situacaoEnum | null = null;
-  idPaciente: number | null = null;
-  idPerfilHospital: number | null = null;
+  numeroQuarto: string = "";
+  situacao: string = SituacaoEnum.LIVRE;
+  idPaciente: string = "";
+  idPerfilHospital: string = "";
 
   constructor(init?: IVaga) {
     Object.assign(this, init);
@@ -25,10 +25,10 @@ export class VagasFormValues implements IVaga {
   createPrototype(): VagasFormValues {
     const obj = {
       id: null,
-      numeroQuarto: null,
-      situacao: null,
-      idPaciente: null,
-      idPerfilHospital: null,
+      numeroQuarto: "",
+      situacao: SituacaoEnum.LIVRE,
+      idPaciente: "",
+      idPerfilHospital: "",
     };
     return new VagasFormValues(obj);
   }

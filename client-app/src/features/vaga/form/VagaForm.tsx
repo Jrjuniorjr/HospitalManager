@@ -1,5 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Segment, Form, Button, Grid } from "semantic-ui-react";
+import {
+  Segment,
+  Form,
+  Button,
+  Grid,
+  Dropdown,
+  Divider,
+} from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router-dom";
 import { Form as FinalForm, Field } from "react-final-form";
@@ -7,7 +14,7 @@ import TextInput from "../../../app/common/form/TextInput";
 import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { PacienteFormValues } from "../../../app/models/paciente";
-import { VagasFormValues } from "../../../app/models/vaga";
+import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
 
 const validate = combineValidators({
   numeroQuarto: isRequired("numeroQuarto"),
@@ -29,6 +36,19 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
 
   const [vaga, setVaga] = useState(new VagasFormValues());
   const [loading, setLoading] = useState(false);
+
+  const optSituacao = [
+    {
+      key: SituacaoEnum.LIVRE,
+      text: SituacaoEnum.LIVRE.toUpperCase(),
+      value: SituacaoEnum.LIVRE,
+    },
+    {
+      key: SituacaoEnum.OCUPADO,
+      text: SituacaoEnum.OCUPADO.toUpperCase(),
+      value: SituacaoEnum.OCUPADO,
+    },
+  ];
 
   useEffect(() => {
     if (match.params.id) {
@@ -62,9 +82,33 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   name="numeroQuarto"
                   placeholder="Número do Quarto"
                   value={vaga.numeroQuarto}
-                  pattern="[0-9]{0,5}"
-                  type="number"
+                  component={TextInput}
                 />
+
+                <Field
+                  name="idPiente"
+                  placeholder="Identificador do Paciente"
+                  rows={3}
+                  value={vaga.idPaciente}
+                  component={TextInput}
+                />
+
+                <Field
+                  name="idPerfilHospital"
+                  placeholder="Identificador do Perfil de Hospital"
+                  rows={3}
+                  value={vaga.idPerfilHospital}
+                  component={TextInput}
+                />
+
+                <Dropdown
+                  placeholder="Situação"
+                  fluid
+                  selection
+                  options={optSituacao}
+                />
+
+                <Divider />
 
                 <Button
                   loading={submitting}
