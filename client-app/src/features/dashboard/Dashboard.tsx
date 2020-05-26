@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { history } from "../..";
+import { RootStoreContext } from "../../app/stores/rootStore";
 
 export const Dashboard = () => {
-    return (
-        <div>
-            Ola
-        </div>
-    )
-}
+  const rootStore = useContext(RootStoreContext);
+
+  if (!rootStore.commonStore.token) {
+    history.push("/notfound");
+  }
+  return <div>Ola</div>;
+};

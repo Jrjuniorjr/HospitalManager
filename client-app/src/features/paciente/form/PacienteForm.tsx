@@ -54,6 +54,10 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
     }
   };
 
+  if(!rootStore.commonStore.token){
+    history.push("/notfound")
+  }
+
   return (
     <Grid>
       <Grid.Column width={10}>

@@ -52,7 +52,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             <Container style={{ marginTop: "7em" }}>
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/login" component={LoginForm} />
                 <Route
                   exact
                   path="/pacienteDashboard"

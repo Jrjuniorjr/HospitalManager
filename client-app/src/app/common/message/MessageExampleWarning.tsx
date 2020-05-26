@@ -3,7 +3,7 @@ import { Message, Button } from "semantic-ui-react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../stores/rootStore";
-
+import {history} from "../../..";
 interface DetailParams {
   id: string;
 }
@@ -11,6 +11,9 @@ interface DetailParams {
 export const MessageExampleWarning: React.FC<RouteComponentProps<DetailParams>> = ({match}) => {
   const rootStore = useContext(RootStoreContext);
   const {deletePaciente} = rootStore.pacienteStore;
+  if(!rootStore.commonStore.token){
+    history.push("/notfound")
+  }
   return (
     <Message warning>
       <Message.Header>Tem certeza que deseja excluir ? !!!</Message.Header>

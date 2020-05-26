@@ -7,10 +7,13 @@ import TextInput from "../../../app/common/form/TextInput";
 import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { PacienteFormValues } from "../../../app/models/paciente";
+import { VagasFormValues } from "../../../app/models/vaga";
 
 const validate = combineValidators({
-  nome: isRequired("nome"),
-  email: isRequired("email"),
+  numeroQuarto: isRequired("numeroQuarto"),
+  situacao: isRequired("situacao"),
+  idPaciente: isRequired("idPaciente"),
+  idPerfilHospital: isRequired("idPerfilHospital"),
 });
 
 interface DetailParams {
@@ -22,31 +25,26 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
   history,
 }) => {
   const rootStore = useContext(RootStoreContext);
-  const {
-    createPaciente,
-    editPaciente,
-    submitting,
-    loadPaciente,
-  } = rootStore.pacienteStore;
+  const { createVaga, editVaga, submitting, loadVaga } = rootStore.vagaStore;
 
-  const [paciente, setPaciente] = useState(new PacienteFormValues());
+  const [vaga, setVaga] = useState(new VagasFormValues());
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (match.params.id) {
       setLoading(true);
-      loadPaciente(parseInt(match.params.id))
-        .then((paciente) => setPaciente(new PacienteFormValues(paciente)))
+      loadVaga(parseInt(match.params.id))
+        .then((vaga) => setVaga(new VagasFormValues(vaga)))
         .finally(() => setLoading(false));
     }
-  }, [loadPaciente, match.params.id]);
+  }, [loadVaga, match.params.id]);
 
   const handleFinalFormSubmit = (values: any) => {
-    const paciente = values;
-    if (!paciente.id) {
-      createPaciente(paciente);
+    const obj = values;
+    if (!obj.id) {
+      createVaga(obj);
     } else {
-      editPaciente(paciente);
+      editVaga(obj);
     }
   };
 
@@ -56,22 +54,16 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
         <Segment clearing>
           <FinalForm
             validate={validate}
-            initialValues={paciente}
+            initialValues={vaga}
             onSubmit={handleFinalFormSubmit}
             render={({ handleSubmit, invalid, pristine }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
-                  name="nome"
-                  placeholder="Nome"
-                  value={paciente.nome}
-                  component={TextInput}
-                />
-                <Field
-                  name="email"
-                  placeholder="e-mail"
-                  rows={3}
-                  value={paciente.email}
-                  component={TextInput}
+                  name="numeroQuarto"
+                  placeholder="Número do Quarto"
+                  value={vaga.numeroQuarto}
+                  pattern="[0-9]{0,5}"
+                  type="number"
                 />
 
                 <Button

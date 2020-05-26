@@ -18,6 +18,8 @@ const NavBar: React.FC = () => {
           />
           HospitalManager
         </Menu.Item>
+        
+        <Menu.Item name="Dashboard" as={NavLink} to="/dashboard" />
         <Menu.Item name="Pacientes" as={NavLink} to="/pacienteDashboard" />
         <Menu.Item name="Vagas" as={NavLink} to="/vagaDashboard" />
         {username && (
@@ -29,9 +31,9 @@ const NavBar: React.FC = () => {
                   as={Link}
                   to={`/profile/username`}
                   text="My profile"
-                  icon="user"
+                  icon="config"
                 />
-                <Dropdown.Item onClick={logout} text="Logout" icon="power" />
+                <Dropdown.Item onClick={logout} text="Logout" icon="sign-out" />
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>
