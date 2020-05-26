@@ -19,6 +19,8 @@ import PacienteDashboard from "../../features/paciente/dashboard/PacienteDashboa
 import PacienteForm from "../../features/paciente/form/PacienteForm";
 import MessageExampleWarning from "../common/message/MessageExampleWarning";
 import { Dashboard } from "../../features/dashboard/Dashboard";
+import VagaDashboard from "../../features/vaga/dashboard/VagaDashboard";
+import VagaForm from "../../features/vaga/form/VagaForm";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -50,7 +52,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             <Container style={{ marginTop: "7em" }}>
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/login" component={LoginForm} />
                 <Route
                   exact
                   path="/pacienteDashboard"
@@ -66,6 +67,17 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   path={["/createPaciente", "/manage/:id"]}
                   component={PacienteForm}
                 />
+                <Route
+                  key={location.key}
+                  path="/vagaDashboard"
+                  component={VagaDashboard}
+                />
+                <Route
+                  key={location.key}
+                  path={["/createVaga", "/manage/:id"]}
+                  component={VagaForm}
+                />
+
                 <Route component={NotFound} />
               </Switch>
             </Container>

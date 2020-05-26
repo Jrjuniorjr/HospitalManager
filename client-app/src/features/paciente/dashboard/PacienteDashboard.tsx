@@ -5,6 +5,8 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import PacienteList from "../lista/PacienteList";
 import { NavLink } from "react-router-dom";
+import {history} from "../../..";
+
 
 const PacienteDashboard : React.FC = () => {
   const rootStore = useContext(RootStoreContext);
@@ -17,6 +19,10 @@ const PacienteDashboard : React.FC = () => {
   it's run again.*/
   if (loadingInitial)
     return <LoadingComponent content="Loading pacientes..." />;
+
+    if(!rootStore.commonStore.token){
+      history.push("/notfound")
+    }
 
   return (
     <Grid>
