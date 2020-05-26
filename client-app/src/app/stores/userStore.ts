@@ -62,6 +62,7 @@ export default class UserStore {
     this.rootStore.commonStore.setId(null);
     this.username = null;
     this.user = null;
+    this.id = null;
     history.push("/");
   };
 }
