@@ -5,8 +5,8 @@ import { IUser, IUserFormValues } from "../models/user";
 import { IPaciente } from "../models/paciente";
 import { IVaga } from "../models/vaga";
 
-//axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
-axios.defaults.baseURL = "https://crud-paciente.herokuapp.com";
+axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
+//axios.defaults.baseURL = "https://crud-paciente.herokuapp.com";
 
 axios.interceptors.request.use(
   (config) => {
