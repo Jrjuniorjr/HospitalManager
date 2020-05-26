@@ -17,7 +17,7 @@ import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
 import PacienteDashboard from "../../features/paciente/dashboard/PacienteDashboard";
 import PacienteForm from "../../features/paciente/form/PacienteForm";
-import MessageExampleWarning from "../common/message/MessageExampleWarning";
+import MessageDeleteWarning from "../common/message/MessageDeleteWarning";
 import { Dashboard } from "../../features/dashboard/Dashboard";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
@@ -58,7 +58,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                 <Route
                   exact
                   path="/messageDelete/:id"
-                  component={MessageExampleWarning}
+                  component={MessageDeleteeWarning}
                 />
                 <Route
                   key={location.key}
