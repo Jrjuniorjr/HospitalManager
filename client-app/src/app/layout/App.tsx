@@ -58,7 +58,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                 <Route
                   exact
                   path="/messageDelete/:id"
-                  component={MessageDeleteeWarning}
+                  component={MessageDeleteWarning}
                 />
                 <Route
                   key={location.key}
