@@ -19,6 +19,8 @@ import PacienteDashboard from "../../features/paciente/dashboard/PacienteDashboa
 import PacienteForm from "../../features/paciente/form/PacienteForm";
 import MessageDeleteWarning from "../common/message/MessageDeleteWarning";
 import { Dashboard } from "../../features/dashboard/Dashboard";
+import VagaDashboard from "../../features/vaga/dashboard/VagaDashboard";
+import VagaForm from "../../features/vaga/form/VagaForm";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -65,6 +67,17 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   path={["/createPaciente", "/manage/:id"]}
                   component={PacienteForm}
                 />
+                <Route
+                  key={location.key}
+                  path="/vagaDashboard"
+                  component={VagaDashboard}
+                />
+                <Route
+                  key={location.key}
+                  path={["/createVaga", "/manage/:id"]}
+                  component={VagaForm}
+                />
+
                 <Route component={NotFound} />
               </Switch>
             </Container>

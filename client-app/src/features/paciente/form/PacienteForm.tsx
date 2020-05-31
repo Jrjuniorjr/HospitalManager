@@ -1,14 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Segment, Form, Button, Grid } from "semantic-ui-react";
+import { Segment, Form, Button, Grid, Divider } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router-dom";
 import { Form as FinalForm, Field } from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
-import {
-  combineValidators,
-  isRequired,
- 
-} from "revalidate";
+import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { PacienteFormValues } from "../../../app/models/paciente";
 
@@ -54,8 +50,8 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
     }
   };
 
-  if(!rootStore.commonStore.token){
-    history.push("/notfound")
+  if (!rootStore.commonStore.token) {
+    history.push("/notfound");
   }
 
   return (
@@ -81,7 +77,7 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   value={paciente.email}
                   component={TextInput}
                 />
-
+                <Divider />
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}
@@ -91,10 +87,7 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   content="Submit"
                 />
                 <Button
-                  onClick={
-                    () => history.push("/pacienteDashboard")
-
-                  }
+                  onClick={() => history.push("/pacienteDashboard")}
                   disabled={loading}
                   floated="right"
                   type="button"

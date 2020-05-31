@@ -3,8 +3,10 @@ import { history } from "../..";
 import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
 import { IPaciente } from "../models/paciente";
+import { IVaga } from "../models/vaga";
 
 axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
+// axios.defaults.baseURL = "https://crud-paciente.herokuapp.com";
 
 axios.interceptors.request.use(
   (config) => {
@@ -53,7 +55,8 @@ const User = {
 };
 
 const Paciente = {
-  list: (id: number): Promise<IPaciente[]> => requests.get(`/paciente/listarPacientes/${id}`),
+  list: (id: number): Promise<IPaciente[]> =>
+    requests.get(`/paciente/listarPacientes/${id}`),
   details: (id: number) => requests.get(`/paciente/consultarPaciente/${id}`),
   create: (paciente: IPaciente) =>
     requests.post("/paciente/cadastrarPaciente", paciente),
@@ -62,7 +65,16 @@ const Paciente = {
   delete: (id: number) => requests.del(`/paciente/removerPaciente/${id}`),
 };
 
+const Vaga = {
+  list: (): Promise<IVaga[]> => requests.get("/vaga/listar"),
+  details: (id: number) => requests.get(`/vaga/consultar${id}`),
+  create: (obj: IVaga) => requests.post("/vaga/cadastrar", obj),
+  update: (obj: IVaga) => requests.put("/vaga/editar", obj),
+  delete: (id: number) => requests.del(`/vaga/remover/${id}`),
+};
+
 export default {
   User,
   Paciente,
+  Vaga,
 };

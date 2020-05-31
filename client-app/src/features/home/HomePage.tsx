@@ -7,14 +7,14 @@ import RegisterForm from "../user/RegisterForm";
 
 const HomePage = () => {
   const rootStore = useContext(RootStoreContext);
-  const { isLoggedIn, username} = rootStore.userStore;
-  const {openModal} = rootStore.modalStore;
+  const { isLoggedIn, username } = rootStore.userStore;
+  const { openModal } = rootStore.modalStore;
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
       <Container text>
         <Header as="h1" inverted>
           <Image
-            size="massive"
+            size="huge"
             src="/assets/logo.png"
             alt="logo"
             style={{ marginBottom: 12 }}
@@ -23,11 +23,7 @@ const HomePage = () => {
         </Header>
         {isLoggedIn && username ? (
           <Fragment>
-            <Header
-              as="h2"
-              inverted
-              content={`Welcome back ${username}`}
-            />
+            <Header as="h2" inverted content={`Welcome back ${username}`} />
             <Button as={Link} to="/dashboard" size="huge" inverted>
               Go to HospitalManager
             </Button>
@@ -35,10 +31,18 @@ const HomePage = () => {
         ) : (
           <Fragment>
             <Header as="h2" inverted content="Welcome to HospitalManager" />
-            <Button onClick={() => openModal(<LoginForm />)} size="huge" inverted>
+            <Button
+              onClick={() => openModal(<LoginForm />)}
+              size="huge"
+              inverted
+            >
               Login
             </Button>
-            <Button onClick={() => openModal(<RegisterForm />)} size="huge" inverted>
+            <Button
+              onClick={() => openModal(<RegisterForm />)}
+              size="huge"
+              inverted
+            >
               Cadastrar
             </Button>
           </Fragment>
