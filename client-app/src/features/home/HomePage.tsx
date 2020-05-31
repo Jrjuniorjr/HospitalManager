@@ -7,7 +7,7 @@ import RegisterForm from "../user/RegisterForm";
 
 const HomePage = () => {
   const rootStore = useContext(RootStoreContext);
-  const { isLoggedIn, user, username } = rootStore.userStore;
+  const { isLoggedIn, username } = rootStore.userStore;
   const { openModal } = rootStore.modalStore;
   return (
     <Segment inverted textAlign="center" vertical className="masthead">
@@ -21,7 +21,7 @@ const HomePage = () => {
           />
           HospitalManager
         </Header>
-        {isLoggedIn && user ? (
+        {isLoggedIn && username ? (
           <Fragment>
             <Header as="h2" inverted content={`Welcome back ${username}`} />
             <Button as={Link} to="/dashboard" size="huge" inverted>
