@@ -18,7 +18,7 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         </Item.Group>
       </Segment>
       <Segment>
-        <Icon name="hospital" /> {vaga.idPerfilHospital}
+        <Icon name="hospital" /> {vaga.user!.username}
       </Segment>
       <Segment>
         <Button

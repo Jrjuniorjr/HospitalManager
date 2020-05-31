@@ -55,8 +55,7 @@ const User = {
 };
 
 const Paciente = {
-  list: (): Promise<IPaciente[]> =>
-    requests.get("/paciente/listarPacientes"),
+  list: (): Promise<IPaciente[]> => requests.get("/paciente/listarPacientes"),
   details: (id: number) => requests.get(`/paciente/consultarPaciente/${id}`),
   create: (paciente: IPaciente) =>
     requests.post("/paciente/cadastrarPaciente", paciente),
@@ -66,8 +65,8 @@ const Paciente = {
 };
 
 const Vaga = {
-  list: (): Promise<IVaga[]> => requests.get("/vaga/listar"),
-  details: (id: number) => requests.get(`/vaga/consultar${id}`),
+  list: (id: number): Promise<IVaga[]> => requests.get(`/vaga/listar/${id}`),
+  details: (id: number) => requests.get(`/vaga/consultar/${id}`),
   create: (obj: IVaga) => requests.post("/vaga/cadastrar", obj),
   update: (obj: IVaga) => requests.put("/vaga/editar", obj),
   delete: (id: number) => requests.del(`/vaga/remover/${id}`),

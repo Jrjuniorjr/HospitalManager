@@ -4,6 +4,7 @@ import agent from "../api/agent";
 import { IVaga } from "../models/vaga";
 import { history } from "../..";
 import { toast } from "react-toastify";
+import { IUser } from "../models/user";
 
 export default class VagaStore {
   rootStore: RootStore;
@@ -23,8 +24,11 @@ export default class VagaStore {
   };
   @action loadVagas = async () => {
     this.loadingInitial = true;
+    this.vagaRegistry = new Map();
     try {
-      const vagas = await agent.Vaga.list();
+      const vagas = await agent.Vaga.list(
+        parseInt(window.localStorage.getItem("id")!)
+      );
       runInAction("loading vagas", () => {
         vagas.forEach((vaga) => {
           this.vagaRegistry.set(vaga.id, vaga);
@@ -60,6 +64,15 @@ export default class VagaStore {
   @action createVaga = async (vaga: IVaga) => {
     this.submitting = true;
     try {
+      let user: IUser = {
+        token: "",
+        type: "",
+        id: parseInt(window.localStorage.getItem("id")!),
+        username: "",
+        email: "",
+        roles: [],
+      };
+      vaga.user = user;
       await agent.Vaga.create(vaga);
       runInAction("creating vaga", () => {
         this.submitting = false;
