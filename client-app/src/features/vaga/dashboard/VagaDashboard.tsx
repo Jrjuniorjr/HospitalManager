@@ -14,7 +14,7 @@ const VagaDashboard: React.FC = () => {
     loadPacientes();
   }, [loadPacientes]);
 
-  if (loadingInitial) return <LoadingComponent content="Loading vagas..." />;
+  if (loadingInitial) return <LoadingComponent content="Carregando vagas..." />;
 
   return (
     <Grid>
