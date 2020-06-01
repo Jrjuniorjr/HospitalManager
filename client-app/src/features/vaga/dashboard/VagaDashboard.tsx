@@ -8,11 +8,11 @@ import { NavLink } from "react-router-dom";
 
 const VagaDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { loadingInitial, loadPacientes } = rootStore.pacienteStore;
+  const { loadingInitial, loadVagas } = rootStore.vagaStore;
 
   useEffect(() => {
-    loadPacientes();
-  }, [loadPacientes]);
+    loadVagas();
+  }, [loadVagas]);
 
   if (loadingInitial) return <LoadingComponent content="Carregando vagas..." />;
 
