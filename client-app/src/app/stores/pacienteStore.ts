@@ -4,7 +4,6 @@ import agent from "../api/agent";
 import { IPaciente } from "../models/paciente";
 import { history } from "../..";
 import { toast } from "react-toastify";
-import { SyntheticEvent } from "react";
 import { IUser } from "../models/user";
 
 export default class PacienteStore {
@@ -27,9 +26,7 @@ export default class PacienteStore {
     this.loadingInitial = true;
     this.pacienteRegistry = new Map();
     try {
-      const pacientes = await agent.Paciente.list(
-        parseInt(window.localStorage.getItem("id")!)
-      );
+      const pacientes = await agent.Paciente.list();
       runInAction("loading pacientes", () => {
         pacientes.forEach((paciente) => {
           this.pacienteRegistry.set(paciente.id, paciente);
@@ -65,19 +62,7 @@ export default class PacienteStore {
   @action createPaciente = async (paciente: IPaciente) => {
     this.submitting = true;
     try {
-      let userTemp: IUser = {
-        token: "",
-        type: "",
-        id: parseInt(window.localStorage.getItem("id")!),
-        username: "",
-        email: "",
-        roles: []
-      };
-      let pacienteTemp = {
-        ...paciente,
-        user: userTemp
-      };
-      await agent.Paciente.create(pacienteTemp);
+      await agent.Paciente.create(paciente);
       runInAction("creating paciente", () => {
         this.submitting = false;
       });

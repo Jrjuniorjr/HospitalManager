@@ -55,19 +55,17 @@ const User = {
 };
 
 const Paciente = {
-  list: (id: number): Promise<IPaciente[]> =>
-    requests.get(`/paciente/listarPacientes/${id}`),
-  details: (id: number) => requests.get(`/paciente/consultarPaciente/${id}`),
+  list: (): Promise<IPaciente[]> => requests.get("/paciente/listar"),
+  details: (id: number) => requests.get(`/paciente/consultar/${id}`),
   create: (paciente: IPaciente) =>
-    requests.post("/paciente/cadastrarPaciente", paciente),
-  update: (paciente: IPaciente) =>
-    requests.put("/paciente/editarPaciente", paciente),
-  delete: (id: number) => requests.del(`/paciente/removerPaciente/${id}`),
+    requests.post("/paciente/cadastrar", paciente),
+  update: (paciente: IPaciente) => requests.put("/paciente/editar", paciente),
+  delete: (id: number) => requests.del(`/paciente/remover/${id}`),
 };
 
 const Vaga = {
-  list: (): Promise<IVaga[]> => requests.get("/vaga/listar"),
-  details: (id: number) => requests.get(`/vaga/consultar${id}`),
+  list: (id: number): Promise<IVaga[]> => requests.get(`/vaga/listar/${id}`),
+  details: (id: number) => requests.get(`/vaga/consultar/${id}`),
   create: (obj: IVaga) => requests.post("/vaga/cadastrar", obj),
   update: (obj: IVaga) => requests.put("/vaga/editar", obj),
   delete: (id: number) => requests.del(`/vaga/remover/${id}`),

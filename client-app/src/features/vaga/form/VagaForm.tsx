@@ -93,14 +93,6 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   component={TextInput}
                 />
 
-                <Field
-                  name="idPerfilHospital"
-                  placeholder="Identificador do Perfil de Hospital"
-                  rows={3}
-                  value={vaga.idPerfilHospital}
-                  component={TextInput}
-                />
-
                 <Dropdown
                   placeholder="Situação"
                   fluid
