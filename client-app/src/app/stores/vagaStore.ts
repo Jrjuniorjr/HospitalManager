@@ -44,9 +44,13 @@ export default class VagaStore {
   };
 
   @action loadVaga = async (id: number) => {
+    console.log(id);
+
     this.loadingInitial = true;
     try {
       let vaga = await agent.Vaga.details(id);
+      console.log(vaga);
+
       runInAction("getting vaga", () => {
         this.vaga = vaga;
         this.vagaRegistry.set(vaga.id, vaga);
@@ -88,6 +92,8 @@ export default class VagaStore {
   };
 
   @action editVaga = async (vaga: IVaga) => {
+    console.log("VAGA: ", vaga);
+
     this.submitting = true;
     try {
       await agent.Vaga.update(vaga);
@@ -118,4 +124,6 @@ export default class VagaStore {
       console.log(error);
     }
   };
+
+  @action vincularPaciente = async (cpf: string, vaga: IVaga) => {};
 }

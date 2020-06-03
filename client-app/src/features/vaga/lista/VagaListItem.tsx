@@ -1,10 +1,15 @@
-import React from "react";
-import { Item, Button, Label, Segment, Icon } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Item, Button, Label, Segment, Icon, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { IVaga } from "../../../app/models/vaga";
 import { observer } from "mobx-react-lite";
+import { RootStoreContext } from "../../../app/stores/rootStore";
+import VagaPacienteForm from "../form/vagaPacienteForm";
 
 const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
+  const rootStore = useContext(RootStoreContext);
+  const { openModal } = rootStore.modalStore;
+
   return (
     <Segment.Group>
       <Segment>
@@ -21,6 +26,18 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         <Icon name="hospital" /> {vaga.user!.username}
       </Segment>
       <Segment>
+        <Button
+          onClick={() => {
+            console.log(vaga.id);
+            console.log(vaga.numeroQuarto);
+
+            rootStore.vagaStore.loadVaga(vaga.id!);
+            openModal(<VagaPacienteForm />, vaga.id);
+          }}
+          floated="right"
+          content="Relacionar com Paciente"
+          color="grey"
+        ></Button>
         <Button
           as={Link}
           to={`/manage/${vaga.id}`}

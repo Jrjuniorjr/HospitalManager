@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { Menu, Container, Button, Dropdown, Image } from "semantic-ui-react";
+import {
+  Menu,
+  Container,
+  Button,
+  Dropdown,
+  Image,
+  Icon,
+} from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { NavLink, Link } from "react-router-dom";
 import { RootStoreContext } from "../../app/stores/rootStore";
@@ -18,12 +25,13 @@ const NavBar: React.FC = () => {
           />
           HospitalManager
         </Menu.Item>
-        
+
         <Menu.Item name="Dashboard" as={NavLink} to="/dashboard" />
         <Menu.Item name="Pacientes" as={NavLink} to="/pacienteDashboard" />
         <Menu.Item name="Vagas" as={NavLink} to="/vagaDashboard" />
         {username && (
           <Menu.Item position="right">
+            <Icon name="alarm" size="large" />
             <Image avatar spaced="right" src={"/assets/user.png"} />
             <Dropdown pointing="top left" text={username}>
               <Dropdown.Menu>
@@ -31,7 +39,7 @@ const NavBar: React.FC = () => {
                   as={Link}
                   to={`/profile/username`}
                   text="My profile"
-                  icon="config"
+                  icon="user"
                 />
                 <Dropdown.Item onClick={logout} text="Logout" icon="sign-out" />
               </Dropdown.Menu>

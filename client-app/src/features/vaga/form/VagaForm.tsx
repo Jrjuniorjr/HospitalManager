@@ -19,8 +19,6 @@ import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
 const validate = combineValidators({
   numeroQuarto: isRequired("numeroQuarto"),
   situacao: isRequired("situacao"),
-  idPaciente: isRequired("idPaciente"),
-  idPerfilHospital: isRequired("idPerfilHospital"),
 });
 
 interface DetailParams {
@@ -85,14 +83,6 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   component={TextInput}
                 />
 
-                <Field
-                  name="idPiente"
-                  placeholder="Identificador do Paciente"
-                  rows={3}
-                  value={vaga.idPaciente}
-                  component={TextInput}
-                />
-
                 <Dropdown
                   placeholder="Situação"
                   fluid
@@ -101,7 +91,6 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 />
 
                 <Divider />
-
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}
@@ -127,3 +116,12 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
 };
 
 export default observer(VagaForm);
+
+/*         <Form>
+          <Field
+            name="cpfPaciente"
+            placeholder="CPF do Paciente"
+            value={vaga.user!.email}
+            component={TextInput}
+          />
+        </Form> */

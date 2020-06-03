@@ -1,11 +1,11 @@
 import { IUser } from "./user";
+import { PacienteFormValues, IPaciente } from "./paciente";
 
 export interface IVaga {
   id: number | null;
   numeroQuarto: string;
   situacao: string;
-  idPaciente: string;
-
+  paciente?: IPaciente;
   user: IUser | null;
 }
 
@@ -18,7 +18,7 @@ export class VagasFormValues implements IVaga {
   id = null;
   numeroQuarto = "";
   situacao = SituacaoEnum.LIVRE;
-  idPaciente = "";
+  paciente?: IPaciente;
   user = null;
 
   constructor(init?: IVaga) {
