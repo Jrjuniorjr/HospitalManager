@@ -21,10 +21,13 @@ const VagaDashboard: React.FC = () => {
       <Grid.Column width={10}>
         <VagaList />
       </Grid.Column>
+<<<<<<< HEAD
 
       <Grid.Column width={6}>
         <Button as={NavLink} to="/createVaga" positive content="Nova Vaga" />
       </Grid.Column>
+=======
+>>>>>>> felix values
     </Grid>
   );
 };

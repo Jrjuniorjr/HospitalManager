@@ -57,7 +57,11 @@ const VagaPacienteForm = () => {
 
     };
     
+<<<<<<< HEAD
 
+=======
+    vaga.situacao = SituacaoEnum.OCUPADO;
+>>>>>>> felix values
     vaga.paciente = paciente;
 
     editVaga(vaga);

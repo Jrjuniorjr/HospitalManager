@@ -9,6 +9,11 @@ import VagaPacienteForm from "../form/vagaPacienteForm";
 const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
   const rootStore = useContext(RootStoreContext);
   const { openModal } = rootStore.modalStore;
+<<<<<<< HEAD
+=======
+  const { vagasIsDisponiveisVisible } = rootStore.vagaStore;
+
+>>>>>>> felix values
 
   return (
     <Segment.Group>
@@ -26,7 +31,40 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         <Icon name="hospital" /> {vaga.user!.username}
       </Segment>
       <Segment>
+<<<<<<< HEAD
         <Button
+=======
+        {vagasIsDisponiveisVisible && [
+            <Button
+              onClick={() => {
+                console.log(vaga.id);
+                console.log(vaga.numeroQuarto);
+
+                rootStore.vagaStore.loadVaga(vaga.id!);
+                openModal(<VagaPacienteForm />, vaga.id);
+              }}
+              floated="right"
+              content="Relacionar com Paciente"
+              color="grey"
+            />,
+            <Button
+              as={Link}
+              to={`/manage/${vaga.id}`}
+              floated="right"
+              content="Editar"
+              color="blue"
+            />,
+            <Button
+              as={Link}
+              to={`/messageDelete/${vaga.id}`}
+              floated="right"
+              content="Remover"
+              color="red"
+            />,
+          ]}
+
+        {!vagasIsDisponiveisVisible && (<Button
+>>>>>>> felix values
           onClick={() => {
             console.log(vaga.id);
             console.log(vaga.numeroQuarto);
@@ -35,6 +73,7 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
             openModal(<VagaPacienteForm />, vaga.id);
           }}
           floated="right"
+<<<<<<< HEAD
           content="Relacionar com Paciente"
           color="grey"
         ></Button>
@@ -52,6 +91,11 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
           content="Remover"
           color="red"
         />
+=======
+          content="Liberar quarto"
+          color="grey"
+        />)}
+>>>>>>> felix values
       </Segment>
     </Segment.Group>
   );
