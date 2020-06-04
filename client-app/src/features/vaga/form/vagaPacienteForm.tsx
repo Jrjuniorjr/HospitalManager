@@ -52,7 +52,11 @@ const VagaPacienteForm = () => {
       nome: "",
       email: "",
       cpf: values.cpfPaciente,
+      telefone: "",
+      dataNascimento: ""
+
     };
+    
 
     vaga.paciente = paciente;
 

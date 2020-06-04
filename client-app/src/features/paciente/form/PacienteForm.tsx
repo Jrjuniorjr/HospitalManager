@@ -77,6 +77,25 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   value={paciente.email}
                   component={TextInput}
                 />
+                 <Field
+                  name="cpf"
+                  placeholder="CPF"
+                  value={paciente.cpf}
+                  component={TextInput}
+                />
+                <Field
+                name="telefone"
+                placeholder="+55 (99) 9999-9999"
+                value={paciente.telefone}
+                component={TextInput}
+              />
+              <Field
+                  name="datanascimento"
+                  placeholder="Data de Nascimento"
+                  value={paciente.dataNascimento}
+                  type="date"
+                  component={TextInput}
+                />
                 <Divider />
                 <Button
                   loading={submitting}

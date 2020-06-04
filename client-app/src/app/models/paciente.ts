@@ -3,6 +3,8 @@ export interface IPaciente {
   nome: string;
   email: string;
   cpf: string;
+  telefone: string;
+  dataNascimento: string;
 }
 
 export class PacienteFormValues implements IPaciente {
@@ -10,6 +12,8 @@ export class PacienteFormValues implements IPaciente {
   nome: string = "";
   email: string = "";
   cpf: string = "";
+  telefone: string = "";
+  dataNascimento: string = "";
 
   constructor(init?: IPaciente) {
     Object.assign(this, init);
