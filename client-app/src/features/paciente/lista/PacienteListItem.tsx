@@ -18,7 +18,17 @@ const PacienteListItem: React.FC<{ paciente: IPaciente }> = ({ paciente }) => {
         </Item.Group>
       </Segment>
       <Segment>
-        <Icon name="mail" /> {paciente.email}
+        <Icon name="address card" /> CPF: {paciente.cpf}
+      </Segment>
+      <Segment>
+        <Icon name="calendar alternate outline" /> Data de Nascimento:{" "}
+        {paciente.dataNascimento}
+      </Segment>
+      <Segment>
+        <Icon name="mail" /> Email: {paciente.email}
+      </Segment>
+      <Segment>
+        <Icon name="phone" /> Telefone: {paciente.telefone}
       </Segment>
       <Segment>
         <Button
@@ -29,7 +39,6 @@ const PacienteListItem: React.FC<{ paciente: IPaciente }> = ({ paciente }) => {
           color="blue"
         />
         <Button
-        
           as={Link}
           to={`/messageDelete/${paciente.id}`}
           floated="right"
