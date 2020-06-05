@@ -93,8 +93,7 @@ export default class VagaStore {
       runInAction("creating vaga", () => {
         this.submitting = false;
       });
-      if (this.vagasIsDisponiveisVisible) history.push("/vagaDashboardLivre");
-      else history.push("vagaDashboardOcupada");
+      history.push("/vagaDashboardLivre");
     } catch (error) {
       runInAction("create vaga error", () => {
         this.submitting = false;
@@ -114,7 +113,7 @@ export default class VagaStore {
         this.submitting = false;
       });
       if (this.vagasIsDisponiveisVisible) history.push("/vagaDashboardLivre");
-      else history.push("vagaDashboardOcupada");
+      else history.push("/vagaDashboardOcupada");
     } catch (error) {
       runInAction("edit vaga error", () => {
         this.submitting = false;
@@ -138,6 +137,4 @@ export default class VagaStore {
       console.log(error);
     }
   };
-
-  @action vincularPaciente = async (cpf: string, vaga: IVaga) => {};
 }

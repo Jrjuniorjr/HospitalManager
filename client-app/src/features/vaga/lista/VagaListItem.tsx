@@ -5,6 +5,7 @@ import { IVaga } from "../../../app/models/vaga";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import VagaPacienteForm from "../form/vagaPacienteForm";
+import { history } from "../../../";
 
 const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
   const rootStore = useContext(RootStoreContext);
@@ -48,6 +49,9 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
             color="blue"
           />,
           <Button
+            onClick= {()=> {
+              rootStore.commonStore.setLiberatedVaga(false);
+            }}
             as={Link}
             to={`/messageDelete/${vaga.id}`}
             floated="right"
@@ -59,12 +63,12 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         {!vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
-              console.log(vaga.id);
-              console.log(vaga.numeroQuarto);
 
               rootStore.vagaStore.loadVaga(vaga.id!);
-              openModal(<VagaPacienteForm />, vaga.id);
+              rootStore.commonStore.setLiberatedVaga(true);
             }}
+            as={Link}
+            to={`/messageDelete/${vaga.id}`}
             floated="right"
             content="Liberar quarto"
             color="grey"

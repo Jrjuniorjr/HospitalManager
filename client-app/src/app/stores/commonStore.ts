@@ -45,6 +45,7 @@ export default class CommonStore {
     "id"
   );
   @observable appLoaded = false;
+  @observable liberateVaga = false;
 
   @action setToken = (token: string | null) => {
     this.token = token;
@@ -61,4 +62,9 @@ export default class CommonStore {
   @action setAppLoaded = () => {
     this.appLoaded = true;
   };
+
+  @action setLiberatedVaga = (boo : boolean) =>{
+    this.liberateVaga = boo;
+  }
+
 }
