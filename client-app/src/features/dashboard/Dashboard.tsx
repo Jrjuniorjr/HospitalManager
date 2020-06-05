@@ -41,6 +41,20 @@ export const Dashboard = () => {
     ],
   };
 
+  let hositalEntrance: any = {
+    labels: [],
+    datasets: [],
+  };
+
+  const loadCovidData = (item: any) => {
+    console.log(item);
+    covidData.labels.push(item.state);
+
+    covidData.datasets[0].data.push(item.cases);
+    covidData.datasets[1].data.push(item.deaths);
+    covidData.datasets[2].data.push(item.suspects);
+  };
+
   const handler = () => {
     fetch("https://covid19-brazil-api.now.sh/api/report/v1", {
       method: "GET",
@@ -50,12 +64,7 @@ export const Dashboard = () => {
           response.json().then((resp) => {
             let arr: any[] = resp.data;
             arr.forEach((item) => {
-              console.log(item);
-              covidData.labels.push(item.state);
-
-              covidData.datasets[0].data.push(item.cases);
-              covidData.datasets[1].data.push(item.deaths);
-              covidData.datasets[2].data.push(item.suspects);
+              loadCovidData(item);
             });
           })
         )
@@ -71,6 +80,14 @@ export const Dashboard = () => {
     <div>
       <h3>Gráficos do Covid-19</h3>
       <Line data={covidData} />
+      <Bar
+        data={hositalEntrance}
+        width={100}
+        height={50}
+        options={{
+          maintainAspectRatio: false,
+        }}
+      />
     </div>
   );
 };

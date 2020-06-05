@@ -53,15 +53,10 @@ const VagaPacienteForm = () => {
       email: "",
       cpf: values.cpfPaciente,
       telefone: "",
-      dataNascimento: ""
-
+      dataNascimento: "",
     };
-    
-<<<<<<< HEAD
 
-=======
     vaga.situacao = SituacaoEnum.OCUPADO;
->>>>>>> felix values
     vaga.paciente = paciente;
 
     editVaga(vaga);

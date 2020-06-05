@@ -18,14 +18,11 @@ export default class VagaStore {
   @observable vaga: IVaga | null = null;
   @observable loading = false;
   @observable submitting = false;
-<<<<<<< HEAD
-=======
   @observable vagasIsDisponiveisVisible = false;
 
   @action setVagasIsDisponiveisVisible = (flag: boolean) => {
     this.vagasIsDisponiveisVisible = flag;
   };
->>>>>>> felix values
 
   @action setLoading = (flag: boolean) => {
     this.loading = flag;
@@ -39,9 +36,6 @@ export default class VagaStore {
       );
       runInAction("loading vagas", () => {
         vagas.forEach((vaga) => {
-<<<<<<< HEAD
-          this.vagaRegistry.set(vaga.id, vaga);
-=======
           if (this.vagasIsDisponiveisVisible) {
             if (vaga.situacao === "livre") {
               this.vagaRegistry.set(vaga.id, vaga);
@@ -51,7 +45,6 @@ export default class VagaStore {
               this.vagaRegistry.set(vaga.id, vaga);
             }
           }
->>>>>>> felix values
         });
         this.loadingInitial = false;
       });
@@ -62,10 +55,6 @@ export default class VagaStore {
       console.log(error);
     }
   };
-<<<<<<< HEAD
-
-=======
->>>>>>> felix values
   @action loadVaga = async (id: number) => {
     console.log(id);
 
@@ -104,13 +93,8 @@ export default class VagaStore {
       runInAction("creating vaga", () => {
         this.submitting = false;
       });
-<<<<<<< HEAD
-      history.push("/vagaDashboard");
-=======
       if (this.vagasIsDisponiveisVisible) history.push("/vagaDashboardLivre");
       else history.push("vagaDashboardOcupada");
-    
->>>>>>> felix values
     } catch (error) {
       runInAction("create vaga error", () => {
         this.submitting = false;
@@ -129,13 +113,8 @@ export default class VagaStore {
       runInAction("editing vaga", () => {
         this.submitting = false;
       });
-<<<<<<< HEAD
-      history.push("/vagaDashboard");
-=======
       if (this.vagasIsDisponiveisVisible) history.push("/vagaDashboardLivre");
       else history.push("vagaDashboardOcupada");
-    
->>>>>>> felix values
     } catch (error) {
       runInAction("edit vaga error", () => {
         this.submitting = false;

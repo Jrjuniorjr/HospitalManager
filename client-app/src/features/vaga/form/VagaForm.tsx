@@ -30,11 +30,13 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
   history,
 }) => {
   const rootStore = useContext(RootStoreContext);
-<<<<<<< HEAD
-  const { createVaga, editVaga, submitting, loadVaga } = rootStore.vagaStore;
-=======
-  const { createVaga, editVaga, submitting, loadVaga, vagasIsDisponiveisVisible } = rootStore.vagaStore;
->>>>>>> felix values
+  const {
+    createVaga,
+    editVaga,
+    submitting,
+    loadVaga,
+    vagasIsDisponiveisVisible,
+  } = rootStore.vagaStore;
 
   const [vaga, setVaga] = useState(new VagasFormValues());
   const [loading, setLoading] = useState(false);
@@ -104,16 +106,11 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   content="Submit"
                 />
                 <Button
-<<<<<<< HEAD
-                  onClick={() => history.push("/vagaDashboard")}
-=======
-                  onClick={() => 
-                    {
-                      if(vagasIsDisponiveisVisible) history.push("/vagaDashboardLivre")
-                      else history.push("vagaDashboardOcupada")
-                  
+                  onClick={() => {
+                    if (vagasIsDisponiveisVisible)
+                      history.push("/vagaDashboardLivre");
+                    else history.push("vagaDashboardOcupada");
                   }}
->>>>>>> felix values
                   disabled={loading}
                   floated="right"
                   type="button"
