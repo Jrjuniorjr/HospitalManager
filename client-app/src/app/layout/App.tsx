@@ -21,6 +21,7 @@ import MessageDeleteWarning from "../common/message/MessageDeleteWarning";
 import { Dashboard } from "../../features/dashboard/Dashboard";
 import VagaDashboard from "../../features/vaga/dashboard/VagaDashboard";
 import VagaForm from "../../features/vaga/form/VagaForm";
+import PacienteCardItem from "../../features/paciente/card/PacienteCard";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -82,6 +83,12 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   path={["/createVaga", "/manage/:id"]}
                   component={VagaForm}
                 />
+                <Route
+                  key={location.key}
+                  path={"/pesquisar/:cpf"}
+                  component={PacienteCardItem}
+                />
+
 
                 <Route component={NotFound} />
               </Switch>
