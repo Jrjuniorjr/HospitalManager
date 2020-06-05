@@ -33,14 +33,14 @@ const PacienteListItem: React.FC<{ paciente: IPaciente }> = ({ paciente }) => {
       <Segment>
         <Button
           as={Link}
-          to={`/manage/${paciente.id}`}
+          to={`/paciente/manage/${paciente.id}`}
           floated="right"
           content="Editar"
           color="blue"
         />
         <Button
           as={Link}
-          to={`/messageDelete/${paciente.id}`}
+          to={`/paciente/messageDelete/${paciente.id}`}
           floated="right"
           content="Remover"
           color="red"

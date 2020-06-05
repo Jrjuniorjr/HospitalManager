@@ -7,6 +7,7 @@ export interface IVaga {
   situacao: string;
   paciente?: IPaciente | null;
   user: IUser | null;
+  descricao: string;
 }
 
 export enum SituacaoEnum {
@@ -20,6 +21,7 @@ export class VagasFormValues implements IVaga {
   situacao = SituacaoEnum.LIVRE;
   paciente?: IPaciente | null;
   user = null;
+  descricao = "";
 
   constructor(init?: IVaga) {
     Object.assign(this, init);

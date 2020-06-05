@@ -55,8 +55,6 @@ const VagaPacienteForm = () => {
       telefone: "",
       dataNascimento: "",
     };
-
-    vaga.situacao = SituacaoEnum.OCUPADO;
     vaga.paciente = paciente;
 
     editVaga(vaga);

@@ -24,8 +24,15 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
           </Item>
         </Item.Group>
       </Segment>
-      <Segment>
+      {/* <Segment>
         <Icon name="hospital" /> {vaga.user!.username}
+      </Segment> */}
+      <Segment>
+        <Icon name="question circle outline" /> {vaga.situacao}
+      </Segment>
+
+      <Segment>
+        <Icon name="comment alternate outline" /> {vaga.descricao}
       </Segment>
       <Segment>
         {vagasIsDisponiveisVisible && [
@@ -43,7 +50,7 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
           />,
           <Button
             as={Link}
-            to={`/manage/${vaga.id}`}
+            to={`vaga/manage/${vaga.id}`}
             floated="right"
             content="Editar"
             color="blue"
@@ -53,7 +60,7 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
               rootStore.commonStore.setLiberatedVaga(false);
             }}
             as={Link}
-            to={`/messageDelete/${vaga.id}`}
+            to={`/vaga/messageDelete/${vaga.id}`}
             floated="right"
             content="Remover"
             color="red"
@@ -68,7 +75,7 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
               rootStore.commonStore.setLiberatedVaga(true);
             }}
             as={Link}
-            to={`/messageDelete/${vaga.id}`}
+            to={`/vaga/messageDelete/${vaga.id}`}
             floated="right"
             content="Liberar quarto"
             color="grey"

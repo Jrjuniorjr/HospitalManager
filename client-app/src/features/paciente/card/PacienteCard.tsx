@@ -9,30 +9,28 @@ import { RootStoreContext } from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface DetailParams {
-    cpf?: string;
-    id?: string;
-  }
+  cpf?: string;
+  id?: string;
+}
 
 const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
-    match,
-    history,
-  }) => {
-    const rootStore = useContext(RootStoreContext);
-    const {
-      loadPacienteByCPF,
-      loadingInitial,
-    } = rootStore.pacienteStore;
-    const [paciente, setPaciente] = useState(new PacienteFormValues());
-    useEffect(() => {
-        if (match.params.cpf) {
-          loadPacienteByCPF(match.params.cpf)
-            .then((paciente) => setPaciente(new PacienteFormValues(paciente)));
-        }
-      }, [loadPacienteByCPF, match.params.cpf]);
+  match,
+  history,
+}) => {
+  const rootStore = useContext(RootStoreContext);
+  const { loadPacienteByCPF, loadingInitial } = rootStore.pacienteStore;
+  const [paciente, setPaciente] = useState(new PacienteFormValues());
+  useEffect(() => {
+    if (match.params.cpf) {
+      loadPacienteByCPF(match.params.cpf).then((paciente) =>
+        setPaciente(new PacienteFormValues(paciente))
+      );
+    }
+  }, [loadPacienteByCPF, match.params.cpf]);
 
-      if (loadingInitial) {
-        return <LoadingComponent content="Loading app..." />;
-      }
+  if (loadingInitial) {
+    return <LoadingComponent content="Loading app..." />;
+  }
   return (
     <Segment.Group>
       <Segment>
@@ -46,29 +44,29 @@ const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
         </Item.Group>
       </Segment>
       <Segment>
-      <Icon name="address card" /> CPF: {paciente.cpf}
+        <Icon name="address card" /> CPF: {paciente.cpf}
       </Segment>
       <Segment>
-      <Icon name="calendar alternate outline" /> Data de Nascimento: {paciente.dataNascimento}
+        <Icon name="calendar alternate outline" /> Data de Nascimento:{" "}
+        {paciente.dataNascimento}
       </Segment>
       <Segment>
         <Icon name="mail" /> Email: {paciente.email}
       </Segment>
       <Segment>
-      <Icon name="phone" /> Telefone: {paciente.telefone}
+        <Icon name="phone" /> Telefone: {paciente.telefone}
       </Segment>
       <Segment>
         <Button
           as={Link}
-          to={`/manage/${paciente.id}`}
+          to={`/paciente/manage/${paciente.id}`}
           floated="right"
           content="Editar"
           color="blue"
         />
         <Button
-        
           as={Link}
-          to={`/messageDelete/${paciente.id}`}
+          to={`/paciente/messageDelete/${paciente.id}`}
           floated="right"
           content="Remover"
           color="red"
