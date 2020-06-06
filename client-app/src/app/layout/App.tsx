@@ -17,10 +17,12 @@ import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
 import PacienteDashboard from "../../features/paciente/dashboard/PacienteDashboard";
 import PacienteForm from "../../features/paciente/form/PacienteForm";
-import MessageDeleteWarning from "../common/message/MessageDeleteWarning";
 import { Dashboard } from "../../features/dashboard/Dashboard";
 import VagaDashboard from "../../features/vaga/dashboard/VagaDashboard";
 import VagaForm from "../../features/vaga/form/VagaForm";
+import PacienteCardItem from "../../features/paciente/card/PacienteCard";
+import { MessageDeleteWarningPaciente } from "../common/message/MessageDeleteWarningPaciente";
+import { MessageDeleteWarningVaga } from "../common/message/MessageDeleteWarningVaga";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -59,12 +61,12 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                 />
                 <Route
                   exact
-                  path="/messageDelete/:id"
-                  component={MessageDeleteWarning}
+                  path="/paciente/messageDelete/:id"
+                  component={MessageDeleteWarningPaciente}
                 />
                 <Route
                   key={location.key}
-                  path={["/createPaciente", "/manage/:id"]}
+                  path={["/createPaciente", "/paciente/manage/:id"]}
                   component={PacienteForm}
                 />
                 <Route
@@ -79,9 +81,20 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                 />
                 <Route
                   key={location.key}
-                  path={["/createVaga", "/manage/:id"]}
+                  path={["/createVaga", "/vaga/manage/:id"]}
                   component={VagaForm}
                 />
+                <Route
+                  exact
+                  path="/vaga/messageDelete/:id"
+                  component={MessageDeleteWarningVaga}
+                />
+                <Route
+                  key={location.key}
+                  path={"/pesquisar/:cpf"}
+                  component={PacienteCardItem}
+                />
+
 
                 <Route component={NotFound} />
               </Switch>

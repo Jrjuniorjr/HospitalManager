@@ -59,6 +59,23 @@ export default class PacienteStore {
     }
   };
 
+  @action loadPacienteByCPF = async (cpf: string) => {
+    this.loadingInitial = true;
+    try {
+      let paciente = await agent.Paciente.findByCpf(cpf);
+      runInAction("getting paciente", () => {
+        this.paciente = paciente;
+        this.loadingInitial = false;
+      });
+      return paciente;
+    } catch (error) {
+      runInAction("get paciente error", () => {
+        this.loadingInitial = false;
+      });
+      console.log(error);
+    }
+  };
+
   @action createPaciente = async (paciente: IPaciente) => {
     this.submitting = true;
     try {

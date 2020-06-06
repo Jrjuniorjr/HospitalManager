@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
 import { IPaciente } from "../models/paciente";
 import { IVaga } from "../models/vaga";
+import { request } from "http";
 
 axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
 //axios.defaults.baseURL = "https://crud-paciente.herokuapp.com";
@@ -61,6 +62,7 @@ const Paciente = {
     requests.post("/paciente/cadastrar", paciente),
   update: (paciente: IPaciente) => requests.put("/paciente/editar", paciente),
   delete: (id: number) => requests.del(`/paciente/remover/${id}`),
+  findByCpf: (cpf: string) => requests.get(`/paciente/pesquisar/${cpf}`),
 };
 
 const Vaga = {

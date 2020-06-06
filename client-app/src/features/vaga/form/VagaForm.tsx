@@ -15,10 +15,12 @@ import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { PacienteFormValues } from "../../../app/models/paciente";
 import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
+import TextAreaInput from "../../../app/common/form/TextAreaInput";
 
 const validate = combineValidators({
   numeroQuarto: isRequired("numeroQuarto"),
   situacao: isRequired("situacao"),
+  descricao: isRequired("descricao")
 });
 
 interface DetailParams {
@@ -89,11 +91,12 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   component={TextInput}
                 />
 
-                <Dropdown
-                  placeholder="Situação"
-                  fluid
-                  selection
-                  options={optSituacao}
+                <Field
+                  name="descricao"
+                  placeholder="Descrição do Quarto"
+                  rows={4}
+                  value={vaga.descricao}
+                  component={TextAreaInput}
                 />
 
                 <Divider />

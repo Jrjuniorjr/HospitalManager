@@ -42,7 +42,9 @@ const NavBar: React.FC = () => {
           to="/vagaDashboardOcupada"
           onClick={() => setVagasIsDisponiveisVisible(false)}
         />
-        <Button as={NavLink} to="/createVaga" positive content="Nova Vaga" />
+        <Menu.Item>
+          <Button as={NavLink} to="/createVaga" positive content="Nova Vaga" />
+        </Menu.Item>
         {username && (
           <Menu.Item position="right">
             <Icon name="alarm" size="large" />

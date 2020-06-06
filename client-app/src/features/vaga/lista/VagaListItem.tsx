@@ -5,6 +5,7 @@ import { IVaga } from "../../../app/models/vaga";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import VagaPacienteForm from "../form/vagaPacienteForm";
+import { history } from "../../../";
 
 const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
   const rootStore = useContext(RootStoreContext);
@@ -23,8 +24,15 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
           </Item>
         </Item.Group>
       </Segment>
-      <Segment>
+      {/* <Segment>
         <Icon name="hospital" /> {vaga.user!.username}
+      </Segment> */}
+      <Segment>
+        <Icon name="question circle outline" /> {vaga.situacao}
+      </Segment>
+
+      <Segment>
+        <Icon name="comment alternate outline" /> {vaga.descricao}
       </Segment>
       <Segment>
         {vagasIsDisponiveisVisible && [
@@ -42,14 +50,17 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
           />,
           <Button
             as={Link}
-            to={`/manage/${vaga.id}`}
+            to={`vaga/manage/${vaga.id}`}
             floated="right"
             content="Editar"
             color="blue"
           />,
           <Button
+            onClick= {()=> {
+              rootStore.commonStore.setLiberatedVaga(false);
+            }}
             as={Link}
-            to={`/messageDelete/${vaga.id}`}
+            to={`/vaga/messageDelete/${vaga.id}`}
             floated="right"
             content="Remover"
             color="red"
@@ -59,12 +70,12 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         {!vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
-              console.log(vaga.id);
-              console.log(vaga.numeroQuarto);
 
               rootStore.vagaStore.loadVaga(vaga.id!);
-              openModal(<VagaPacienteForm />, vaga.id);
+              rootStore.commonStore.setLiberatedVaga(true);
             }}
+            as={Link}
+            to={`/vaga/messageDelete/${vaga.id}`}
             floated="right"
             content="Liberar quarto"
             color="grey"
