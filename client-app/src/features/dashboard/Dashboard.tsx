@@ -3,8 +3,9 @@ import { history } from "../..";
 import { RootStoreContext } from "../../app/stores/rootStore";
 import { Bar, Line, Pie, Doughnut } from "react-chartjs-2";
 import { Button } from "semantic-ui-react";
+import { observer } from "mobx-react-lite";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const rootStore = useContext(RootStoreContext);
   const [covidData, setCovidData] = useState({});
 
@@ -123,7 +124,7 @@ export const Dashboard = () => {
   }, []);
 
   if (!rootStore.commonStore.token) {
-    history.push("/notfound");
+    history.push("/notauthorized");
   }
 
   return (
@@ -140,3 +141,5 @@ export const Dashboard = () => {
     </div>
   );
 };
+
+export default observer(Dashboard);

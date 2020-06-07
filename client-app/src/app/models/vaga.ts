@@ -1,5 +1,5 @@
 import { IUser } from "./user";
-import { PacienteFormValues, IPaciente } from "./paciente";
+import { IPaciente } from "./paciente";
 
 export interface IVaga {
   id: number | null;

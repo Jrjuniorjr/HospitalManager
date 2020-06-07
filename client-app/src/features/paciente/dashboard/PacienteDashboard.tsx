@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Grid, Button, GridRow, Header, Form } from "semantic-ui-react";
+import { Grid, Button, Header, Form } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -33,9 +33,9 @@ const PacienteDashboard: React.FC = () => {
   if (loadingInitial)
     return <LoadingComponent content="Loading pacientes..." />;
 
-  if (!rootStore.commonStore.token) {
-    history.push("/notfound");
-  }
+    if (!rootStore.commonStore.token) {
+      history.push("/notauthorized");
+    }
 
   return (
     <Grid>

@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Message, Button } from "semantic-ui-react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../stores/rootStore";
-import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
 import { history } from "../../..";
 interface DetailParams {
   id: string;
@@ -16,7 +15,7 @@ export const MessageDeleteWarningPaciente: React.FC<RouteComponentProps<
   const { deletePaciente } = rootStore.pacienteStore;
 
   if (!rootStore.commonStore.token) {
-    history.push("/notfound");
+    history.push("/notauthorized");
   }
   return (
     <Message warning>

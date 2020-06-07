@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Message, Button } from "semantic-ui-react";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../stores/rootStore";
 import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
@@ -30,7 +30,7 @@ export const MessageDeleteWarningVaga: React.FC<RouteComponentProps<
   }, [loadVaga, match.params.id]);
 
   if (!rootStore.commonStore.token) {
-    history.push("/notfound");
+    history.push("/notauthorized");
   }
   if (rootStore.commonStore.liberateVaga) {
     return (

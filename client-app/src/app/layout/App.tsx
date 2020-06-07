@@ -11,18 +11,18 @@ import {
 import HomePage from "../../features/home/HomePage";
 import NotFound from "./NotFound";
 import { ToastContainer } from "react-toastify";
-import LoginForm from "../../features/user/LoginForm";
 import { RootStoreContext } from "../stores/rootStore";
 import LoadingComponent from "./LoadingComponent";
 import ModalContainer from "../common/modals/ModalContainer";
 import PacienteDashboard from "../../features/paciente/dashboard/PacienteDashboard";
 import PacienteForm from "../../features/paciente/form/PacienteForm";
-import { Dashboard } from "../../features/dashboard/Dashboard";
 import VagaDashboard from "../../features/vaga/dashboard/VagaDashboard";
 import VagaForm from "../../features/vaga/form/VagaForm";
 import PacienteCardItem from "../../features/paciente/card/PacienteCard";
 import { MessageDeleteWarningPaciente } from "../common/message/MessageDeleteWarningPaciente";
 import { MessageDeleteWarningVaga } from "../common/message/MessageDeleteWarningVaga";
+import NotAuthorized from "./NotAuthorized";
+import Dashboard from "../../features/dashboard/Dashboard";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -76,11 +76,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                 />
                 <Route
                   key={location.key}
-                  path="/vagaDashboard"
-                  component={VagaDashboard}
-                />
-                <Route
-                  key={location.key}
                   path={["/createVaga", "/vaga/manage/:id"]}
                   component={VagaForm}
                 />
@@ -94,7 +89,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   path={"/pesquisar/:cpf"}
                   component={PacienteCardItem}
                 />
-
+                <Route path="/notauthorized" component={NotAuthorized} />
 
                 <Route component={NotFound} />
               </Switch>

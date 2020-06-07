@@ -7,6 +7,7 @@ import TextInput from "../../../app/common/form/TextInput";
 import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { PacienteFormValues } from "../../../app/models/paciente";
+import ErrorMessage from "../../../app/common/form/ErrorMessage";
 
 const validate = combineValidators({
   nome: isRequired("nome"),
@@ -51,7 +52,7 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
   };
 
   if (!rootStore.commonStore.token) {
-    history.push("/notfound");
+    history.push("/notauthorized");
   }
 
   return (
@@ -62,7 +63,13 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
             validate={validate}
             initialValues={paciente}
             onSubmit={handleFinalFormSubmit}
-            render={({ handleSubmit, invalid, pristine }) => (
+            render={({
+              handleSubmit,
+              invalid,
+              pristine,
+              submitError,
+              dirtySinceLastSubmit,
+            }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
                   name="nome"
@@ -77,19 +84,19 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   value={paciente.email}
                   component={TextInput}
                 />
-                 <Field
+                <Field
                   name="cpf"
                   placeholder="CPF"
                   value={paciente.cpf}
                   component={TextInput}
                 />
                 <Field
-                name="telefone"
-                placeholder="+55 (99) 9999-9999"
-                value={paciente.telefone}
-                component={TextInput}
-              />
-              <Field
+                  name="telefone"
+                  placeholder="+55 (99) 9999-9999"
+                  value={paciente.telefone}
+                  component={TextInput}
+                />
+                <Field
                   name="datanascimento"
                   placeholder="Data de Nascimento"
                   value={paciente.dataNascimento}
@@ -97,6 +104,12 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   component={TextInput}
                 />
                 <Divider />
+                {submitError && !dirtySinceLastSubmit && (
+                  <ErrorMessage
+                    error={submitError}
+                    text={submitError.data.message}
+                  />
+                )}
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}

@@ -1,25 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import {
-  Segment,
   Form,
   Button,
-  Grid,
-  Dropdown,
-  Divider,
   Header,
 } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import { RouteComponentProps } from "react-router-dom";
 import { Form as FinalForm, Field } from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
 import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import { PacienteFormValues, IPaciente } from "../../../app/models/paciente";
-import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
+import { VagasFormValues } from "../../../app/models/vaga";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
-interface DetailParams {
-  id: string;
-}
 const validate = combineValidators({
   cpfPaciente: isRequired("cpfPaciente"),
 });
@@ -29,20 +21,20 @@ const VagaPacienteForm = () => {
 
   const rootStore = useContext(RootStoreContext);
   const { editVaga, loadVaga } = rootStore.vagaStore;
-
+  const {modal} = rootStore.modalStore;
   useEffect(() => {
-    console.log(rootStore.modalStore.modal.objId);
+    console.log(modal.objId);
 
-    if (rootStore.modalStore.modal.objId) {
+    if (modal.objId) {
       setLoading(true);
-      loadVaga(parseInt(rootStore.modalStore.modal.objId!))
+      loadVaga(parseInt(modal.objId!))
         .then((vaga) => {
           console.log(vaga);
           setVaga(new VagasFormValues(vaga));
         })
         .finally(() => setLoading(false));
     }
-  }, [loadVaga]);
+  }, [loadVaga, modal.objId]);
 
   const handleFinalFormSubmit = (values: any) => {
     console.log(values);
@@ -61,6 +53,9 @@ const VagaPacienteForm = () => {
     rootStore.modalStore.closeModal();
   };
 
+  if(loading){
+    return <LoadingComponent content="Aguarde..."/>
+  }
   return (
     <FinalForm
       onSubmit={handleFinalFormSubmit}
@@ -99,4 +94,4 @@ const VagaPacienteForm = () => {
   );
 };
 
-export default VagaPacienteForm;
+export default observer(VagaPacienteForm);

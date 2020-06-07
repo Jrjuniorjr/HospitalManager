@@ -6,6 +6,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { PacienteFormValues } from "../../../app/models/paciente";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import {history} from "../../.."
 
 interface DetailParams {
   cpf?: string;
@@ -25,6 +26,9 @@ const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
     }
   }, [loadPacienteByCPF, match.params.cpf]);
 
+  if (!rootStore.commonStore.token) {
+    history.push("/notauthorized");
+  }
   if (loadingInitial) {
     return <LoadingComponent content="Loading app..." />;
   }

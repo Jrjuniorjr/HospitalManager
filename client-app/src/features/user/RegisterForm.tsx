@@ -7,6 +7,7 @@ import { IUserFormValues } from "../../app/models/user";
 import { FORM_ERROR } from "final-form";
 import { combineValidators, isRequired } from "revalidate";
 import ErrorMessage from "../../app/common/form/ErrorMessage";
+import { observer } from "mobx-react-lite";
 
 const validate = combineValidators({
   username: isRequired("username"),
@@ -20,7 +21,7 @@ const RegisterForm = () => {
   return (
     <FinalForm
       onSubmit={(values: IUserFormValues) =>
-        register(values).catch(error => ({
+        register(values).catch((error) => ({
           [FORM_ERROR]: error,
         }))
       }
@@ -49,9 +50,7 @@ const RegisterForm = () => {
             type="password"
           />
           {submitError && !dirtySinceLastSubmit && (
-            <ErrorMessage
-              error={submitError}
-            />            
+            <ErrorMessage error={submitError} text={submitError.data.message}/> 
           )}
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
@@ -66,4 +65,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default observer(RegisterForm);

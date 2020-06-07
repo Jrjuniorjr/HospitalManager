@@ -13,7 +13,7 @@ import { RootStoreContext } from "../../app/stores/rootStore";
 
 const NavBar: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { user, logout, username } = rootStore.userStore;
+  const { logout, username } = rootStore.userStore;
   const { setVagasIsDisponiveisVisible } = rootStore.vagaStore;
 
   return (

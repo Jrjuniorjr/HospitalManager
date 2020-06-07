@@ -4,7 +4,6 @@ import agent from "../api/agent";
 import { IPaciente } from "../models/paciente";
 import { history } from "../..";
 import { toast } from "react-toastify";
-import { IUser } from "../models/user";
 
 export default class PacienteStore {
   rootStore: RootStore;

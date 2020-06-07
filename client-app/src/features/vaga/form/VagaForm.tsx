@@ -4,7 +4,6 @@ import {
   Form,
   Button,
   Grid,
-  Dropdown,
   Divider,
 } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
@@ -13,13 +12,12 @@ import { Form as FinalForm, Field } from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
 import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import { PacienteFormValues } from "../../../app/models/paciente";
 import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
+import ErrorMessage from "../../../app/common/form/ErrorMessage";
 
 const validate = combineValidators({
   numeroQuarto: isRequired("numeroQuarto"),
-  situacao: isRequired("situacao"),
   descricao: isRequired("descricao")
 });
 
@@ -73,7 +71,9 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
       editVaga(obj);
     }
   };
-
+  if (!rootStore.commonStore.token) {
+    history.push("/notauthorized");
+  }
   return (
     <Grid>
       <Grid.Column width={10}>
@@ -82,7 +82,7 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
             validate={validate}
             initialValues={vaga}
             onSubmit={handleFinalFormSubmit}
-            render={({ handleSubmit, invalid, pristine }) => (
+            render={({ handleSubmit, invalid, pristine, submitError, dirtySinceLastSubmit }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
                   name="numeroQuarto"
@@ -100,6 +100,12 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 />
 
                 <Divider />
+                {submitError && !dirtySinceLastSubmit && (
+                  <ErrorMessage
+                    error={submitError}
+                    text={submitError.data.message}
+                  />)
+                }
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}
@@ -130,11 +136,3 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
 
 export default observer(VagaForm);
 
-/*         <Form>
-          <Field
-            name="cpfPaciente"
-            placeholder="CPF do Paciente"
-            value={vaga.user!.email}
-            component={TextInput}
-          />
-        </Form> */
