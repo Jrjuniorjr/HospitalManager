@@ -11,6 +11,9 @@ body {
   ) !important;
 }
 
+.iconPesquisa{
+  margin: 10px;
+}
 /*home page styles*/
 
 .masthead {

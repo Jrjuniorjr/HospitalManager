@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import { Item, Button, Label, Segment, Icon, Form } from "semantic-ui-react";
+import { Item, Button, Segment, Icon  } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { IVaga } from "../../../app/models/vaga";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import VagaPacienteForm from "../form/vagaPacienteForm";
-import { history } from "../../../";
 
 const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
   const rootStore = useContext(RootStoreContext);
@@ -34,13 +33,18 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
       <Segment>
         <Icon name="comment alternate outline" /> {vaga.descricao}
       </Segment>
+      {vaga.paciente && (
+        <Segment>
+          <Icon name="user"/> {vaga.paciente.nome}
+          <Link to={`/pesquisar/${vaga.paciente.cpf}`} className="iconPesquisa">
+          <Icon name="search"/>
+          </Link>
+        </Segment>
+      )}
       <Segment>
         {vagasIsDisponiveisVisible && [
           <Button
             onClick={() => {
-              console.log(vaga.id);
-              console.log(vaga.numeroQuarto);
-
               rootStore.vagaStore.loadVaga(vaga.id!);
               openModal(<VagaPacienteForm />, vaga.id);
             }}
@@ -56,7 +60,7 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
             color="blue"
           />,
           <Button
-            onClick= {()=> {
+            onClick={() => {
               rootStore.commonStore.setLiberatedVaga(false);
             }}
             as={Link}
@@ -70,7 +74,6 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         {!vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
-
               rootStore.vagaStore.loadVaga(vaga.id!);
               rootStore.commonStore.setLiberatedVaga(true);
             }}
