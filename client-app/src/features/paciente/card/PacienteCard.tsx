@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Item, Button, Label, Segment, Icon } from "semantic-ui-react";
+import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { IPaciente } from "../../../app/models/paciente";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router-dom";
 import { PacienteFormValues } from "../../../app/models/paciente";
@@ -10,12 +9,10 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 interface DetailParams {
   cpf?: string;
-  id?: string;
 }
 
 const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
-  history,
 }) => {
   const rootStore = useContext(RootStoreContext);
   const { loadPacienteByCPF, loadingInitial } = rootStore.pacienteStore;

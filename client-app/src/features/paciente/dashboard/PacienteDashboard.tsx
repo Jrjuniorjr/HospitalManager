@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Grid, Button, GridRow, Header, Form } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -17,6 +17,8 @@ const validate = combineValidators({
 const PacienteDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
   const { loadingInitial, loadPacientes } = rootStore.pacienteStore;
+  const [habilitarLista, setHabilitarLista] = useState(false);
+  const [mensagemLista, setMensagemList] = useState("Listar pacientes");
   useEffect(() => {
     loadPacientes();
   }, [
@@ -75,19 +77,32 @@ const PacienteDashboard: React.FC = () => {
           />
         </Grid.Column>
         <Grid.Column width={6}>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           <Button
             as={NavLink}
             to="/createPaciente"
             positive
             content="Novo Paciente"
           />
+          <br />
+          <br />
+          <Button
+            onClick={() => {
+              setHabilitarLista(!habilitarLista);
+              if(habilitarLista){
+                setMensagemList("Listar pacientes")
+              }
+              else{
+                setMensagemList("Ocultar listar pacientes")
+              }
+            }}
+            content={mensagemLista}
+            positive
+          />
         </Grid.Column>
       </Grid.Row>
-      <Grid.Column width={10}>
-        <PacienteList />
-      </Grid.Column>
+      <Grid.Column width={10}>{habilitarLista && <PacienteList />}</Grid.Column>
     </Grid>
   );
 };
