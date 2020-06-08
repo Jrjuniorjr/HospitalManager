@@ -97,6 +97,13 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   value={vaga.descricao}
                   component={TextAreaInput}
                 />
+                <Field
+                  name="dataAlocacao"
+                  placeholder="Data de Alocção"
+                  value={vaga.dataAlocacao}
+                  type="date"
+                  component={TextInput}
+                />
 
                 <Divider />
                 <Button

@@ -21,8 +21,7 @@ const PacienteListItem: React.FC<{ paciente: IPaciente }> = ({ paciente }) => {
         <Icon name="address card" /> CPF: {paciente.cpf}
       </Segment>
       <Segment>
-        <Icon name="calendar alternate outline" /> Data de Nascimento:{" "}
-        {paciente.dataNascimento}
+        <Icon name="calendar alternate outline" /> Data de Nascimento: {paciente.dataNascimento}
       </Segment>
       <Segment>
         <Icon name="mail" /> Email: {paciente.email}

@@ -16,9 +16,10 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
       <Segment>
         <Item.Group>
           <Item>
-            <Item.Image size="tiny" circular src="/assets/user.png" />
             <Item.Content>
-              <Item.Header as="a">{vaga.numeroQuarto}</Item.Header>
+              <Item.Header as="a">
+                <Icon name="bed"/>
+                {vaga.numeroQuarto}</Item.Header>
             </Item.Content>
           </Item>
         </Item.Group>
@@ -27,11 +28,14 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         <Icon name="hospital" /> {vaga.user!.username}
       </Segment> */}
       <Segment>
-        <Icon name="question circle outline" /> {vaga.situacao}
+        <Icon name="question circle outline" /> Situação: {vaga.situacao}
       </Segment>
 
       <Segment>
-        <Icon name="comment alternate outline" /> {vaga.descricao}
+        <Icon name="comment alternate outline" /> Descrição: {vaga.descricao}
+      </Segment>
+      <Segment>
+        <Icon name="calendar alternate outline" /> Data de alocação: {vaga.dataAlocacao}
       </Segment>
       {vaga.paciente && (
         <Segment>
