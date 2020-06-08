@@ -18,12 +18,12 @@ export default class CommonStore {
       }
     );
     reaction(
-      () => this.username,
-      (username) => {
-        if (username) {
-          window.localStorage.setItem("username", username);
+      () => this.nomeHospital,
+      (nomeHospital) => {
+        if (nomeHospital) {
+          window.localStorage.setItem("nomeHospital", nomeHospital);
         } else {
-          window.localStorage.removeItem("username");
+          window.localStorage.removeItem("nomeHospital");
         }
       }
     );
@@ -40,7 +40,7 @@ export default class CommonStore {
   }
 
   @observable token: string | null = window.localStorage.getItem("jwt");
-  @observable username: string | null = window.localStorage.getItem("username");
+  @observable nomeHospital: string | null = window.localStorage.getItem("nomeHospital");
   @observable id: string | null = window.localStorage.getItem(
     "id"
   );
@@ -51,8 +51,8 @@ export default class CommonStore {
     this.token = token;
   };
 
-  @action setUsername = (username: string | null) => {
-    this.username = username;
+  @action setNomeHospital = (nomeHospital: string | null) => {
+    this.nomeHospital = nomeHospital;
   };
 
   @action setId = (id: string | null) => {

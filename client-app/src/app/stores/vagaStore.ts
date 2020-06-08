@@ -1,5 +1,5 @@
 import { RootStore } from "./rootStore";
-import { observable, action, runInAction } from "mobx";
+import { observable, action, runInAction, computed } from "mobx";
 import agent from "../api/agent";
 import { IVaga } from "../models/vaga";
 import { history } from "../..";
@@ -20,6 +20,14 @@ export default class VagaStore {
   @observable submitting = false;
   @observable vagasIsDisponiveisVisible = false;
 
+  @computed get isVagaRegistryEmpty(){
+    if(this.vagaRegistry.size > 0){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
   @action setVagasIsDisponiveisVisible = (flag: boolean) => {
     this.vagasIsDisponiveisVisible = flag;
   };
@@ -77,6 +85,7 @@ export default class VagaStore {
     this.submitting = true;
     try {
       let user: IUser = {
+        nomeHospital: "",
         token: "",
         type: "",
         id: parseInt(window.localStorage.getItem("id")!),

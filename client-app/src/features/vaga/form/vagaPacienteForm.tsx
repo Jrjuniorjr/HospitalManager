@@ -18,6 +18,7 @@ const VagaPacienteForm = () => {
 
   const rootStore = useContext(RootStoreContext);
   const { editVaga, loadVaga } = rootStore.vagaStore;
+  const [error, setError]: any = useState(null);
   const { modal } = rootStore.modalStore;
   useEffect(() => {
     if (modal.objId) {
@@ -40,8 +41,8 @@ const VagaPacienteForm = () => {
       dataNascimento: "",
     };
     vaga.paciente = paciente;
-    editVaga(vaga)
-      .then(() => rootStore.modalStore.closeModal());
+    editVaga(vaga).then(setError(null))
+      .then(() => rootStore.modalStore.closeModal()).catch(error => setError(error));
   };
   if (loading) {
     return <LoadingComponent content="Aguarde..." />;
@@ -53,7 +54,6 @@ const VagaPacienteForm = () => {
       render={({
         handleSubmit,
         submitting,
-        submitError,
         invalid,
         pristine,
         dirtySinceLastSubmit,
@@ -70,6 +70,7 @@ const VagaPacienteForm = () => {
             component={TextInput}
             placeholder="CPF do Paciente"
           />
+          {error && (<ErrorMessage error={error} text={error.data.message}/>)}
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             content="Vincular"

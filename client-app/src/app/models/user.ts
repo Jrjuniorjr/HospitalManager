@@ -5,6 +5,7 @@ export interface IUser {
   username: string;
   email: string;
   roles: string[];
+  nomeHospital: string;
 }
 
 export interface IUserFormValues {
@@ -12,4 +13,5 @@ export interface IUserFormValues {
   email?: string;
   password: string;
   roles?: string[];
+  nomeHospital: string;
 }

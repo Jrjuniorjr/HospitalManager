@@ -1,5 +1,5 @@
 import { RootStore } from "./rootStore";
-import { observable, action, runInAction } from "mobx";
+import { observable, action, runInAction, computed } from "mobx";
 import agent from "../api/agent";
 import { IPaciente } from "../models/paciente";
 import { history } from "../..";
@@ -17,6 +17,15 @@ export default class PacienteStore {
   @observable paciente: IPaciente | null = null;
   @observable loading = false;
   @observable submitting = false;
+
+  @computed get isPacienteRegistryEmpty(){
+    if(this.pacienteRegistry.size > 0){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 
   @action setLoading = (flag: boolean) => {
     this.loading = flag;

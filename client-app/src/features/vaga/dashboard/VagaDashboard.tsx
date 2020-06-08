@@ -5,9 +5,10 @@ import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import VagaList from "../lista/VagaList";
 import {history} from "../../.."
+import { ListaVazia } from "../../../app/common/message/ListaVazia";
 const VagaDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { loadingInitial, loadVagas } = rootStore.vagaStore;
+  const { loadingInitial, loadVagas, isVagaRegistryEmpty } = rootStore.vagaStore;
 
   useEffect(() => {
     loadVagas();
@@ -22,6 +23,7 @@ const VagaDashboard: React.FC = () => {
   return (
     <Grid>
       <Grid.Column width={10}>
+        {isVagaRegistryEmpty && (<ListaVazia/>)}
         <VagaList />
       </Grid.Column>
     </Grid>

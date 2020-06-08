@@ -9,6 +9,7 @@ import { history } from "../../..";
 import { Form as FinalForm, Field } from "react-final-form";
 import { combineValidators, isRequired } from "revalidate";
 import TextInput from "../../../app/common/form/TextInput";
+import { ListaVazia } from "../../../app/common/message/ListaVazia";
 
 const validate = combineValidators({
   cpfPaciente: isRequired("cpfPaciente"),
@@ -16,7 +17,7 @@ const validate = combineValidators({
 
 const PacienteDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { loadingInitial, loadPacientes } = rootStore.pacienteStore;
+  const { loadingInitial, loadPacientes, isPacienteRegistryEmpty } = rootStore.pacienteStore;
   const [habilitarLista, setHabilitarLista] = useState(false);
   const [mensagemLista, setMensagemList] = useState("Listar pacientes");
   useEffect(() => {
@@ -102,7 +103,9 @@ const PacienteDashboard: React.FC = () => {
           />
         </Grid.Column>
       </Grid.Row>
-      <Grid.Column width={10}>{habilitarLista && <PacienteList />}</Grid.Column>
+          <Grid.Column width={10}>{habilitarLista && isPacienteRegistryEmpty && (<ListaVazia/>)}
+          {habilitarLista && !isPacienteRegistryEmpty && (<PacienteList/>)}
+          </Grid.Column>
     </Grid>
   );
 };

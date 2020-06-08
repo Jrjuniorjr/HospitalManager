@@ -27,15 +27,15 @@ import Dashboard from "../../features/dashboard/Dashboard";
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
   const { setAppLoaded, token, appLoaded } = rootStore.commonStore;
-  const { getUsername } = rootStore.userStore;
+  const { getNomeHospital } = rootStore.userStore;
 
   useEffect(() => {
     if (token) {
-      getUsername().finally(() => setAppLoaded());
+      getNomeHospital().finally(() => setAppLoaded());
     } else {
       setAppLoaded();
     }
-  }, [getUsername, setAppLoaded, token]);
+  }, [getNomeHospital, setAppLoaded, token]);
 
   if (!appLoaded) {
     return <LoadingComponent content="Loading app..." />;

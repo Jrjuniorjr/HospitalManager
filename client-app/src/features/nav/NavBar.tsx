@@ -13,7 +13,7 @@ import { RootStoreContext } from "../../app/stores/rootStore";
 
 const NavBar: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { logout, username } = rootStore.userStore;
+  const { logout, nomeHospital } = rootStore.userStore;
   const { setVagasIsDisponiveisVisible } = rootStore.vagaStore;
 
   return (
@@ -45,18 +45,18 @@ const NavBar: React.FC = () => {
         <Menu.Item>
           <Button as={NavLink} to="/createVaga" positive content="Nova Vaga" />
         </Menu.Item>
-        {username && (
+        {nomeHospital && (
           <Menu.Item position="right">
             <Icon name="alarm" size="large" />
             <Image avatar spaced="right" src={"/assets/user.png"} />
-            <Dropdown pointing="top left" text={username}>
+            <Dropdown pointing="top left" text={nomeHospital}>
               <Dropdown.Menu>
-                <Dropdown.Item
+                {/* <Dropdown.Item
                   as={Link}
                   to={`/profile/username`}
                   text="My profile"
                   icon="user"
-                />
+                /> */}
                 <Dropdown.Item onClick={logout} text="Logout" icon="sign-out" />
               </Dropdown.Menu>
             </Dropdown>
