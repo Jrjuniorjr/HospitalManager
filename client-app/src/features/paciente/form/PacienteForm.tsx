@@ -7,11 +7,13 @@ import TextInput from "../../../app/common/form/TextInput";
 import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { PacienteFormValues } from "../../../app/models/paciente";
-import ErrorMessage from "../../../app/common/form/ErrorMessage";
 
 const validate = combineValidators({
   nome: isRequired("nome"),
   email: isRequired("email"),
+  cpf: isRequired("cpf"),
+  telefone: isRequired("telefone"),
+  dataNascimento: isRequired("data de nascimento")
 });
 
 interface DetailParams {
@@ -67,8 +69,6 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
               handleSubmit,
               invalid,
               pristine,
-              submitError,
-              dirtySinceLastSubmit,
             }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
@@ -97,19 +97,14 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   component={TextInput}
                 />
                 <Field
-                  name="datanascimento"
+                  name="dataNascimento"
                   placeholder="Data de Nascimento"
                   value={paciente.dataNascimento}
                   type="date"
                   component={TextInput}
                 />
                 <Divider />
-                {submitError && !dirtySinceLastSubmit && (
-                  <ErrorMessage
-                    error={submitError}
-                    text={submitError.data.message}
-                  />
-                )}
+               
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}

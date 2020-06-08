@@ -13,7 +13,7 @@ export class PacienteFormValues implements IPaciente {
   email: string = "";
   cpf: string = "";
   telefone: string = "";
-  dataNascimento: string = "";
+  dataNascimento: string = ""; 
 
   constructor(init?: IPaciente) {
     Object.assign(this, init);

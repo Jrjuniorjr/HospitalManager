@@ -56,13 +56,9 @@ export default class VagaStore {
     }
   };
   @action loadVaga = async (id: number) => {
-    console.log(id);
-
     this.loadingInitial = true;
     try {
       let vaga = await agent.Vaga.details(id);
-      console.log(vaga);
-
       runInAction("getting vaga", () => {
         this.vaga = vaga;
         this.vagaRegistry.set(vaga.id, vaga);
@@ -98,8 +94,9 @@ export default class VagaStore {
       runInAction("create vaga error", () => {
         this.submitting = false;
       });
-      toast.error("Problem submitting data");
+      toast.error("Vaga já cadastrada.");
       console.log(error.response);
+      throw error;
     }
   };
 
@@ -118,7 +115,7 @@ export default class VagaStore {
       runInAction("edit vaga error", () => {
         this.submitting = false;
       });
-      console.log(error);
+      throw error;
     }
   };
 
@@ -135,6 +132,8 @@ export default class VagaStore {
         this.submitting = false;
       });
       console.log(error);
+      throw error;
+
     }
   };
 }

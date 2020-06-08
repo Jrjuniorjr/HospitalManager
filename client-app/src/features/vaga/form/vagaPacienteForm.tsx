@@ -1,9 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Form,
-  Button,
-  Header,
-} from "semantic-ui-react";
+import { Form, Button, Header } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { Form as FinalForm, Field } from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
@@ -11,6 +7,7 @@ import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { VagasFormValues } from "../../../app/models/vaga";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import ErrorMessage from "../../../app/common/form/ErrorMessage";
 
 const validate = combineValidators({
   cpfPaciente: isRequired("cpfPaciente"),
@@ -21,15 +18,12 @@ const VagaPacienteForm = () => {
 
   const rootStore = useContext(RootStoreContext);
   const { editVaga, loadVaga } = rootStore.vagaStore;
-  const {modal} = rootStore.modalStore;
+  const { modal } = rootStore.modalStore;
   useEffect(() => {
-    console.log(modal.objId);
-
     if (modal.objId) {
       setLoading(true);
       loadVaga(parseInt(modal.objId!))
         .then((vaga) => {
-          console.log(vaga);
           setVaga(new VagasFormValues(vaga));
         })
         .finally(() => setLoading(false));
@@ -37,8 +31,6 @@ const VagaPacienteForm = () => {
   }, [loadVaga, modal.objId]);
 
   const handleFinalFormSubmit = (values: any) => {
-    console.log(values);
-
     let paciente = {
       id: null,
       nome: "",
@@ -48,13 +40,11 @@ const VagaPacienteForm = () => {
       dataNascimento: "",
     };
     vaga.paciente = paciente;
-
-    editVaga(vaga);
-    rootStore.modalStore.closeModal();
+    editVaga(vaga)
+      .then(() => rootStore.modalStore.closeModal());
   };
-
-  if(loading){
-    return <LoadingComponent content="Aguarde..."/>
+  if (loading) {
+    return <LoadingComponent content="Aguarde..." />;
   }
   return (
     <FinalForm
@@ -80,7 +70,6 @@ const VagaPacienteForm = () => {
             component={TextInput}
             placeholder="CPF do Paciente"
           />
-
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             content="Vincular"

@@ -14,7 +14,6 @@ import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
-import ErrorMessage from "../../../app/common/form/ErrorMessage";
 
 const validate = combineValidators({
   numeroQuarto: isRequired("numeroQuarto"),
@@ -100,12 +99,6 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 />
 
                 <Divider />
-                {submitError && !dirtySinceLastSubmit && (
-                  <ErrorMessage
-                    error={submitError}
-                    text={submitError.data.message}
-                  />)
-                }
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}

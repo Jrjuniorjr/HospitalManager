@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Item, Button, Segment, Icon  } from "semantic-ui-react";
+import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { IVaga } from "../../../app/models/vaga";
 import { observer } from "mobx-react-lite";
@@ -35,30 +35,33 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
       </Segment>
       {vaga.paciente && (
         <Segment>
-          <Icon name="user"/> {vaga.paciente.nome}
+          <Icon name="user" /> {vaga.paciente.nome}
           <Link to={`/pesquisar/${vaga.paciente.cpf}`} className="iconPesquisa">
-          <Icon name="search"/>
+            <Icon name="search" />
           </Link>
         </Segment>
       )}
       <Segment>
-        {vagasIsDisponiveisVisible && [
+        {vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
-              rootStore.vagaStore.loadVaga(vaga.id!);
               openModal(<VagaPacienteForm />, vaga.id);
             }}
             floated="right"
             content="Relacionar com Paciente"
             color="grey"
-          />,
+          />
+        )}
+        {vagasIsDisponiveisVisible && (
           <Button
             as={Link}
             to={`vaga/manage/${vaga.id}`}
             floated="right"
             content="Editar"
             color="blue"
-          />,
+          />
+        )}
+        {vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
               rootStore.commonStore.setLiberatedVaga(false);
@@ -68,13 +71,12 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
             floated="right"
             content="Remover"
             color="red"
-          />,
-        ]}
+          />
+        )}
 
         {!vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
-              rootStore.vagaStore.loadVaga(vaga.id!);
               rootStore.commonStore.setLiberatedVaga(true);
             }}
             as={Link}

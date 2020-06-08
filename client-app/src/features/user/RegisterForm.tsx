@@ -20,11 +20,11 @@ const RegisterForm = () => {
 
   return (
     <FinalForm
-      onSubmit={(values: IUserFormValues) =>
+      onSubmit={(values: IUserFormValues) =>{
         register(values).catch((error) => ({
           [FORM_ERROR]: error,
         }))
-      }
+      }}
       validate={validate}
       render={({
         handleSubmit,

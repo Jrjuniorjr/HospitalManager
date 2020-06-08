@@ -87,8 +87,8 @@ export default class PacienteStore {
       runInAction("create paciente error", () => {
         this.submitting = false;
       });
-      toast.error("Problem submitting data");
-      console.log(error.response);
+      toast.error("Paciente já cadastrado.");
+      throw error;
     }
   };
 
@@ -105,6 +105,7 @@ export default class PacienteStore {
         this.submitting = false;
       });
       console.log(error);
+      throw error;
     }
   };
 
@@ -121,6 +122,8 @@ export default class PacienteStore {
         this.submitting = false;
       });
       console.log(error);
+      throw error;
+
     }
   };
 }
