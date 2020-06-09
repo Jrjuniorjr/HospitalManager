@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
 import { IPaciente } from "../models/paciente";
 import { IVaga } from "../models/vaga";
+import { INotification } from "../models/notification";
 
 axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
 
@@ -71,6 +72,12 @@ const Vaga = {
   update: (obj: IVaga) => requests.put("/vaga/editar", obj),
   delete: (id: number) => requests.del(`/vaga/remover/${id}`),
 };
+
+const Notification = {
+  listEnviados: (id: number): Promise<INotification[]> => requests.get(`/notification/notificacoesEnviadas/${id}`),
+  listRecebidos: (id: number): Promise<INotification[]> => requests.get(`/notification/notificacoesRecebidas/${id}`),
+  create: (obj: INotification) => requests.post("/notification/notificar", obj),
+}
 
 export default {
   User,
