@@ -1,21 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Item, Button, Label, Segment, Icon } from "semantic-ui-react";
+import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { IPaciente } from "../../../app/models/paciente";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router-dom";
 import { PacienteFormValues } from "../../../app/models/paciente";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import {history} from "../../.."
 
 interface DetailParams {
   cpf?: string;
-  id?: string;
 }
 
 const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
-  history,
 }) => {
   const rootStore = useContext(RootStoreContext);
   const { loadPacienteByCPF, loadingInitial } = rootStore.pacienteStore;
@@ -28,6 +26,9 @@ const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
     }
   }, [loadPacienteByCPF, match.params.cpf]);
 
+  if (!rootStore.commonStore.token) {
+    history.push("/notauthorized");
+  }
   if (loadingInitial) {
     return <LoadingComponent content="Loading app..." />;
   }
@@ -47,8 +48,7 @@ const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
         <Icon name="address card" /> CPF: {paciente.cpf}
       </Segment>
       <Segment>
-        <Icon name="calendar alternate outline" /> Data de Nascimento:{" "}
-        {paciente.dataNascimento}
+        <Icon name="calendar alternate outline" /> Data de Nascimento: {paciente.dataNascimento}
       </Segment>
       <Segment>
         <Icon name="mail" /> Email: {paciente.email}

@@ -12,7 +12,7 @@ export default class UserStore {
   }
 
   @observable user: IUser | null = null;
-  @observable username: string | null = null;
+  @observable nomeHospital: string | null = null;
   @observable id: number | null = null;
 
   @computed get isLoggedIn() {
@@ -27,7 +27,7 @@ export default class UserStore {
       });
       console.log(user);
       this.rootStore.commonStore.setToken(user.token);
-      this.rootStore.commonStore.setUsername(user.username);
+      this.rootStore.commonStore.setNomeHospital(user.nomeHospital);
       this.rootStore.commonStore.setId(user.id.toString());
       this.rootStore.modalStore.closeModal();
       history.push("/dashboard");
@@ -48,8 +48,8 @@ export default class UserStore {
     }
   };
 
-  @action getUsername = async () => {
-    this.username = window.localStorage.getItem("username");
+  @action getNomeHospital = async () => {
+    this.nomeHospital = window.localStorage.getItem("nomeHospital");
   };
 
   @action getId = async () => {
@@ -58,9 +58,9 @@ export default class UserStore {
 
   @action logout = () => {
     this.rootStore.commonStore.setToken(null);
-    this.rootStore.commonStore.setUsername(null);
+    this.rootStore.commonStore.setNomeHospital(null);
     this.rootStore.commonStore.setId(null);
-    this.username = null;
+    this.nomeHospital = null;
     this.user = null;
     this.id = null;
     history.push("/");

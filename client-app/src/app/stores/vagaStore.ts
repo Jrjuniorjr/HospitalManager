@@ -1,5 +1,5 @@
 import { RootStore } from "./rootStore";
-import { observable, action, runInAction } from "mobx";
+import { observable, action, runInAction, computed } from "mobx";
 import agent from "../api/agent";
 import { IVaga } from "../models/vaga";
 import { history } from "../..";
@@ -20,6 +20,14 @@ export default class VagaStore {
   @observable submitting = false;
   @observable vagasIsDisponiveisVisible = false;
 
+  @computed get isVagaRegistryEmpty(){
+    if(this.vagaRegistry.size > 0){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
   @action setVagasIsDisponiveisVisible = (flag: boolean) => {
     this.vagasIsDisponiveisVisible = flag;
   };
@@ -56,13 +64,9 @@ export default class VagaStore {
     }
   };
   @action loadVaga = async (id: number) => {
-    console.log(id);
-
     this.loadingInitial = true;
     try {
       let vaga = await agent.Vaga.details(id);
-      console.log(vaga);
-
       runInAction("getting vaga", () => {
         this.vaga = vaga;
         this.vagaRegistry.set(vaga.id, vaga);
@@ -81,6 +85,7 @@ export default class VagaStore {
     this.submitting = true;
     try {
       let user: IUser = {
+        nomeHospital: "",
         token: "",
         type: "",
         id: parseInt(window.localStorage.getItem("id")!),
@@ -98,8 +103,9 @@ export default class VagaStore {
       runInAction("create vaga error", () => {
         this.submitting = false;
       });
-      toast.error("Problem submitting data");
+      toast.error("Vaga já cadastrada.");
       console.log(error.response);
+      throw error;
     }
   };
 
@@ -118,7 +124,7 @@ export default class VagaStore {
       runInAction("edit vaga error", () => {
         this.submitting = false;
       });
-      console.log(error);
+      throw error;
     }
   };
 
@@ -135,6 +141,8 @@ export default class VagaStore {
         this.submitting = false;
       });
       console.log(error);
+      throw error;
+
     }
   };
 }

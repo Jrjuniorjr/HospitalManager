@@ -4,10 +4,8 @@ import { toast } from "react-toastify";
 import { IUser, IUserFormValues } from "../models/user";
 import { IPaciente } from "../models/paciente";
 import { IVaga } from "../models/vaga";
-import { request } from "http";
 
 axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
-//axios.defaults.baseURL = "https://crud-paciente.herokuapp.com";
 
 axios.interceptors.request.use(
   (config) => {
@@ -25,7 +23,6 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(undefined, (error) => {
-  console.log(error.response);
 
   if (error.message === "Network Error" && !error.response) {
     toast.error("Network error - make sure API is running!!!");
@@ -33,7 +30,9 @@ axios.interceptors.response.use(undefined, (error) => {
   if (error.response.status === 404) {
     history.push("/notfound");
   }
-
+  if(error.response.status === 405){
+    toast.error("Paciente ainda está alocado a uma vaga!");
+  }
   if (error.response.status === 500) {
     toast.error("Server error - check the terminal for more info!");
   }

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { Grid, Button, GridRow, Header, Form } from "semantic-ui-react";
+import React, { useContext, useEffect, useState } from "react";
+import { Grid, Button, Header, Form } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { RootStoreContext } from "../../../app/stores/rootStore";
@@ -9,6 +9,7 @@ import { history } from "../../..";
 import { Form as FinalForm, Field } from "react-final-form";
 import { combineValidators, isRequired } from "revalidate";
 import TextInput from "../../../app/common/form/TextInput";
+import { ListaVazia } from "../../../app/common/message/ListaVazia";
 
 const validate = combineValidators({
   cpfPaciente: isRequired("cpfPaciente"),
@@ -16,7 +17,9 @@ const validate = combineValidators({
 
 const PacienteDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { loadingInitial, loadPacientes } = rootStore.pacienteStore;
+  const { loadingInitial, loadPacientes, isPacienteRegistryEmpty } = rootStore.pacienteStore;
+  const [habilitarLista, setHabilitarLista] = useState(false);
+  const [mensagemLista, setMensagemList] = useState("Listar pacientes");
   useEffect(() => {
     loadPacientes();
   }, [
@@ -31,9 +34,9 @@ const PacienteDashboard: React.FC = () => {
   if (loadingInitial)
     return <LoadingComponent content="Loading pacientes..." />;
 
-  if (!rootStore.commonStore.token) {
-    history.push("/notfound");
-  }
+    if (!rootStore.commonStore.token) {
+      history.push("/notauthorized");
+    }
 
   return (
     <Grid>
@@ -75,19 +78,34 @@ const PacienteDashboard: React.FC = () => {
           />
         </Grid.Column>
         <Grid.Column width={6}>
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           <Button
             as={NavLink}
             to="/createPaciente"
             positive
             content="Novo Paciente"
           />
+          <br />
+          <br />
+          <Button
+            onClick={() => {
+              setHabilitarLista(!habilitarLista);
+              if(habilitarLista){
+                setMensagemList("Listar pacientes")
+              }
+              else{
+                setMensagemList("Ocultar listar pacientes")
+              }
+            }}
+            content={mensagemLista}
+            positive
+          />
         </Grid.Column>
       </Grid.Row>
-      <Grid.Column width={10}>
-        <PacienteList />
-      </Grid.Column>
+          <Grid.Column width={10}>{habilitarLista && isPacienteRegistryEmpty && (<ListaVazia/>)}
+          {habilitarLista && !isPacienteRegistryEmpty && (<PacienteList/>)}
+          </Grid.Column>
     </Grid>
   );
 };

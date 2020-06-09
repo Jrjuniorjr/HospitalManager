@@ -1,5 +1,5 @@
 import React from "react";
-import { Item, Button, Label, Segment, Icon } from "semantic-ui-react";
+import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { IPaciente } from "../../../app/models/paciente";
 import { observer } from "mobx-react-lite";
@@ -21,8 +21,7 @@ const PacienteListItem: React.FC<{ paciente: IPaciente }> = ({ paciente }) => {
         <Icon name="address card" /> CPF: {paciente.cpf}
       </Segment>
       <Segment>
-        <Icon name="calendar alternate outline" /> Data de Nascimento:{" "}
-        {paciente.dataNascimento}
+        <Icon name="calendar alternate outline" /> Data de Nascimento: {paciente.dataNascimento}
       </Segment>
       <Segment>
         <Icon name="mail" /> Email: {paciente.email}

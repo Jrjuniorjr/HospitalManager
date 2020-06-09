@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
-import { Item, Button, Label, Segment, Icon, Form } from "semantic-ui-react";
+import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { IVaga } from "../../../app/models/vaga";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import VagaPacienteForm from "../form/vagaPacienteForm";
-import { history } from "../../../";
 
 const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
   const rootStore = useContext(RootStoreContext);
@@ -17,9 +16,10 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
       <Segment>
         <Item.Group>
           <Item>
-            <Item.Image size="tiny" circular src="/assets/user.png" />
             <Item.Content>
-              <Item.Header as="a">{vaga.numeroQuarto}</Item.Header>
+              <Item.Header as="a">
+                <Icon name="bed"/>
+                {vaga.numeroQuarto}</Item.Header>
             </Item.Content>
           </Item>
         </Item.Group>
@@ -28,35 +28,46 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
         <Icon name="hospital" /> {vaga.user!.username}
       </Segment> */}
       <Segment>
-        <Icon name="question circle outline" /> {vaga.situacao}
+        <Icon name="question circle outline" /> Situação: {vaga.situacao}
       </Segment>
 
       <Segment>
-        <Icon name="comment alternate outline" /> {vaga.descricao}
+        <Icon name="comment alternate outline" /> Descrição: {vaga.descricao}
       </Segment>
       <Segment>
-        {vagasIsDisponiveisVisible && [
+        <Icon name="calendar alternate outline" /> Data de alocação: {vaga.dataAlocacao}
+      </Segment>
+      {vaga.paciente && (
+        <Segment>
+          <Icon name="user" /> {vaga.paciente.nome}
+          <Link to={`/pesquisar/${vaga.paciente.cpf}`} className="iconPesquisa">
+            <Icon name="search" />
+          </Link>
+        </Segment>
+      )}
+      <Segment>
+        {vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
-              console.log(vaga.id);
-              console.log(vaga.numeroQuarto);
-
-              rootStore.vagaStore.loadVaga(vaga.id!);
               openModal(<VagaPacienteForm />, vaga.id);
             }}
             floated="right"
             content="Relacionar com Paciente"
             color="grey"
-          />,
+          />
+        )}
+        {vagasIsDisponiveisVisible && (
           <Button
             as={Link}
             to={`vaga/manage/${vaga.id}`}
             floated="right"
             content="Editar"
             color="blue"
-          />,
+          />
+        )}
+        {vagasIsDisponiveisVisible && (
           <Button
-            onClick= {()=> {
+            onClick={() => {
               rootStore.commonStore.setLiberatedVaga(false);
             }}
             as={Link}
@@ -64,14 +75,12 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
             floated="right"
             content="Remover"
             color="red"
-          />,
-        ]}
+          />
+        )}
 
         {!vagasIsDisponiveisVisible && (
           <Button
             onClick={() => {
-
-              rootStore.vagaStore.loadVaga(vaga.id!);
               rootStore.commonStore.setLiberatedVaga(true);
             }}
             as={Link}

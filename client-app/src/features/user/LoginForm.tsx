@@ -7,6 +7,7 @@ import { IUserFormValues } from "../../app/models/user";
 import { FORM_ERROR } from "final-form";
 import { combineValidators, isRequired } from "revalidate";
 import ErrorMessage from "../../app/common/form/ErrorMessage";
+import { observer } from "mobx-react-lite";
 
 const validate = combineValidators({
   username: isRequired("username"),
@@ -65,4 +66,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default observer(LoginForm);

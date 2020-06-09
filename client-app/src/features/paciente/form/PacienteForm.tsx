@@ -11,6 +11,9 @@ import { PacienteFormValues } from "../../../app/models/paciente";
 const validate = combineValidators({
   nome: isRequired("nome"),
   email: isRequired("email"),
+  cpf: isRequired("cpf"),
+  telefone: isRequired("telefone"),
+  dataNascimento: isRequired("data de nascimento")
 });
 
 interface DetailParams {
@@ -51,7 +54,7 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
   };
 
   if (!rootStore.commonStore.token) {
-    history.push("/notfound");
+    history.push("/notauthorized");
   }
 
   return (
@@ -62,7 +65,11 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
             validate={validate}
             initialValues={paciente}
             onSubmit={handleFinalFormSubmit}
-            render={({ handleSubmit, invalid, pristine }) => (
+            render={({
+              handleSubmit,
+              invalid,
+              pristine,
+            }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
                   name="nome"
@@ -77,26 +84,27 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   value={paciente.email}
                   component={TextInput}
                 />
-                 <Field
+                <Field
                   name="cpf"
                   placeholder="CPF"
                   value={paciente.cpf}
                   component={TextInput}
                 />
                 <Field
-                name="telefone"
-                placeholder="+55 (99) 9999-9999"
-                value={paciente.telefone}
-                component={TextInput}
-              />
-              <Field
-                  name="datanascimento"
+                  name="telefone"
+                  placeholder="+55 (99) 9999-9999"
+                  value={paciente.telefone}
+                  component={TextInput}
+                />
+                <Field
+                  name="dataNascimento"
                   placeholder="Data de Nascimento"
                   value={paciente.dataNascimento}
                   type="date"
                   component={TextInput}
                 />
                 <Divider />
+               
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}

@@ -1,25 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Segment,
-  Form,
-  Button,
-  Grid,
-  Dropdown,
-  Divider,
-  Header,
-} from "semantic-ui-react";
+import { Form, Button, Header } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
-import { RouteComponentProps } from "react-router-dom";
 import { Form as FinalForm, Field } from "react-final-form";
 import TextInput from "../../../app/common/form/TextInput";
 import { combineValidators, isRequired } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
-import { PacienteFormValues, IPaciente } from "../../../app/models/paciente";
-import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
+import { VagasFormValues } from "../../../app/models/vaga";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import ErrorMessage from "../../../app/common/form/ErrorMessage";
 
-interface DetailParams {
-  id: string;
-}
 const validate = combineValidators({
   cpfPaciente: isRequired("cpfPaciente"),
 });
@@ -29,24 +18,20 @@ const VagaPacienteForm = () => {
 
   const rootStore = useContext(RootStoreContext);
   const { editVaga, loadVaga } = rootStore.vagaStore;
-
+  const [error, setError]: any = useState(null);
+  const { modal } = rootStore.modalStore;
   useEffect(() => {
-    console.log(rootStore.modalStore.modal.objId);
-
-    if (rootStore.modalStore.modal.objId) {
+    if (modal.objId) {
       setLoading(true);
-      loadVaga(parseInt(rootStore.modalStore.modal.objId!))
+      loadVaga(parseInt(modal.objId!))
         .then((vaga) => {
-          console.log(vaga);
           setVaga(new VagasFormValues(vaga));
         })
         .finally(() => setLoading(false));
     }
-  }, [loadVaga]);
+  }, [loadVaga, modal.objId]);
 
   const handleFinalFormSubmit = (values: any) => {
-    console.log(values);
-
     let paciente = {
       id: null,
       nome: "",
@@ -56,11 +41,12 @@ const VagaPacienteForm = () => {
       dataNascimento: "",
     };
     vaga.paciente = paciente;
-
-    editVaga(vaga);
-    rootStore.modalStore.closeModal();
+    editVaga(vaga).then(setError(null))
+      .then(() => rootStore.modalStore.closeModal()).catch(error => setError(error));
   };
-
+  if (loading) {
+    return <LoadingComponent content="Aguarde..." />;
+  }
   return (
     <FinalForm
       onSubmit={handleFinalFormSubmit}
@@ -68,7 +54,6 @@ const VagaPacienteForm = () => {
       render={({
         handleSubmit,
         submitting,
-        submitError,
         invalid,
         pristine,
         dirtySinceLastSubmit,
@@ -85,7 +70,7 @@ const VagaPacienteForm = () => {
             component={TextInput}
             placeholder="CPF do Paciente"
           />
-
+          {error && (<ErrorMessage error={error} text={error.data.message}/>)}
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             content="Vincular"
@@ -99,4 +84,4 @@ const VagaPacienteForm = () => {
   );
 };
 
-export default VagaPacienteForm;
+export default observer(VagaPacienteForm);
