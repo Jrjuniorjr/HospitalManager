@@ -83,4 +83,5 @@ export default {
   User,
   Paciente,
   Vaga,
+  Notification,
 };
