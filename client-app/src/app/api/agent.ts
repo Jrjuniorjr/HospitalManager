@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { history } from "../..";
 import { toast } from "react-toastify";
-import { IUser, IUserFormValues } from "../models/user";
+import { IUser, IUserFormValues, IUserItem } from "../models/user";
 import { IPaciente } from "../models/paciente";
 import { IVaga } from "../models/vaga";
 import { INotification } from "../models/notification";
@@ -53,6 +53,7 @@ const User = {
   login: (user: IUserFormValues): Promise<IUser> =>
     requests.post("/api/auth/signin", user),
   register: (user: IUserFormValues) => requests.post("/api/auth/signup", user),
+  listAll: (): Promise<IUserItem[]> => requests.get("/api/user/all"),
 };
 
 const Paciente = {

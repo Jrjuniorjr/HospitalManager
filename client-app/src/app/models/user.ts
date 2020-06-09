@@ -15,3 +15,11 @@ export interface IUserFormValues {
   roles?: string[];
   nomeHospital: string;
 }
+
+export interface IUserItem {
+  nomeHospital: string;
+  telefone?: string;
+  email?: string;
+  id: number;
+}
+
