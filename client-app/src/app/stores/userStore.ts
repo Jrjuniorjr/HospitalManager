@@ -21,11 +21,10 @@ export default class UserStore {
     return !!this.user;
   }
 
-  @computed get isUserRegistryEmpty(){
-    if(this.userRegistry.size > 0){
+  @computed get isUserRegistryEmpty() {
+    if (this.userRegistry.size > 0) {
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
@@ -90,22 +89,6 @@ export default class UserStore {
       });
     } catch (error) {
       runInAction("load user error", () => {
-        this.loadingInitial = false;
-      });
-      console.log(error);
-    }
-  };
-
-  @action loadUser = async (id: number) => {
-    this.loadingInitial = true;
-    try {
-      let user = await agent.User.findById(id);
-      runInAction("getting user", () => {
-        this.loadingInitial = false;
-      });
-      return user;
-    } catch (error) {
-      runInAction("get user error", () => {
         this.loadingInitial = false;
       });
       console.log(error);

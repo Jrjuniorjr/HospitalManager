@@ -17,15 +17,18 @@ const validate = combineValidators({
 
 const PacienteDashboard: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { loadingInitial, loadPacientes, isPacienteRegistryEmpty } = rootStore.pacienteStore;
+  const {
+    loadingInitial,
+    loadPacientes,
+    isPacienteRegistryEmpty,
+  } = rootStore.pacienteStore;
   const [habilitarLista, setHabilitarLista] = useState(false);
   const [mensagemLista, setMensagemList] = useState("Listar pacientes");
   useEffect(() => {
     loadPacientes();
   }, [
     loadPacientes,
-  ]); /*this empty array is ensure to effect run once, because without it, when the component gets rerendenring
-  it's run again.*/
+  ]); 
 
   const handleFinalFormSubmit = (values: any) => {
     history.push(`/pesquisar/${values.cpfPaciente}`);
@@ -34,9 +37,9 @@ const PacienteDashboard: React.FC = () => {
   if (loadingInitial)
     return <LoadingComponent content="Loading pacientes..." />;
 
-    if (!rootStore.commonStore.token) {
-      history.push("/notauthorized");
-    }
+  if (!rootStore.commonStore.token) {
+    history.push("/notauthorized");
+  }
 
   return (
     <Grid>
@@ -91,11 +94,10 @@ const PacienteDashboard: React.FC = () => {
           <Button
             onClick={() => {
               setHabilitarLista(!habilitarLista);
-              if(habilitarLista){
-                setMensagemList("Listar pacientes")
-              }
-              else{
-                setMensagemList("Ocultar listar pacientes")
+              if (habilitarLista) {
+                setMensagemList("Listar pacientes");
+              } else {
+                setMensagemList("Ocultar listar pacientes");
               }
             }}
             content={mensagemLista}
@@ -103,9 +105,10 @@ const PacienteDashboard: React.FC = () => {
           />
         </Grid.Column>
       </Grid.Row>
-          <Grid.Column width={10}>{habilitarLista && isPacienteRegistryEmpty && (<ListaVazia/>)}
-          {habilitarLista && !isPacienteRegistryEmpty && (<PacienteList/>)}
-          </Grid.Column>
+      <Grid.Column width={10}>
+        {habilitarLista && isPacienteRegistryEmpty && <ListaVazia />}
+        {habilitarLista && !isPacienteRegistryEmpty && <PacienteList />}
+      </Grid.Column>
     </Grid>
   );
 };

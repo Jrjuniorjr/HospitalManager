@@ -40,10 +40,10 @@ export default class CommonStore {
   }
 
   @observable token: string | null = window.localStorage.getItem("jwt");
-  @observable nomeHospital: string | null = window.localStorage.getItem("nomeHospital");
-  @observable id: string | null = window.localStorage.getItem(
-    "id"
+  @observable nomeHospital: string | null = window.localStorage.getItem(
+    "nomeHospital"
   );
+  @observable id: string | null = window.localStorage.getItem("id");
   @observable appLoaded = false;
   @observable liberateVaga = false;
 
@@ -63,8 +63,7 @@ export default class CommonStore {
     this.appLoaded = true;
   };
 
-  @action setLiberatedVaga = (boo : boolean) =>{
+  @action setLiberatedVaga = (boo: boolean) => {
     this.liberateVaga = boo;
-  }
-
+  };
 }

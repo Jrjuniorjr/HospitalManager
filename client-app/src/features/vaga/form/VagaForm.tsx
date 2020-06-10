@@ -1,11 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  Segment,
-  Form,
-  Button,
-  Grid,
-  Divider,
-} from "semantic-ui-react";
+import { Segment, Form, Button, Grid, Divider } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router-dom";
 import { Form as FinalForm, Field } from "react-final-form";
@@ -17,7 +11,7 @@ import TextAreaInput from "../../../app/common/form/TextAreaInput";
 
 const validate = combineValidators({
   numeroQuarto: isRequired("numeroQuarto"),
-  descricao: isRequired("descricao")
+  descricao: isRequired("descricao"),
 });
 
 interface DetailParams {
@@ -81,7 +75,13 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
             validate={validate}
             initialValues={vaga}
             onSubmit={handleFinalFormSubmit}
-            render={({ handleSubmit, invalid, pristine, submitError, dirtySinceLastSubmit }) => (
+            render={({
+              handleSubmit,
+              invalid,
+              pristine,
+              submitError,
+              dirtySinceLastSubmit,
+            }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
                   name="numeroQuarto"
@@ -128,4 +128,3 @@ const VagaForm: React.FC<RouteComponentProps<DetailParams>> = ({
 };
 
 export default observer(VagaForm);
-

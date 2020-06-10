@@ -51,12 +51,14 @@ const NavBar: React.FC = () => {
             <Image avatar spaced="right" src={"/assets/user.png"} />
             <Dropdown pointing="top left" text={nomeHospital}>
               <Dropdown.Menu>
-                { <Dropdown.Item
-                  as={Link}
-                  to={`/notificationDashboard`}
-                  text="Notificações"
-                  icon="e-mail"
-                />}
+                {
+                  <Dropdown.Item
+                    as={Link}
+                    to={`/notificationDashboard`}
+                    text="Notificações"
+                    icon="mail"
+                  />
+                }
                 <Dropdown.Item onClick={logout} text="Logout" icon="sign-out" />
               </Dropdown.Menu>
             </Dropdown>

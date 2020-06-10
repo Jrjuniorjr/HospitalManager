@@ -18,11 +18,10 @@ export default class PacienteStore {
   @observable loading = false;
   @observable submitting = false;
 
-  @computed get isPacienteRegistryEmpty(){
-    if(this.pacienteRegistry.size > 0){
+  @computed get isPacienteRegistryEmpty() {
+    if (this.pacienteRegistry.size > 0) {
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
@@ -132,7 +131,6 @@ export default class PacienteStore {
       });
       console.log(error);
       throw error;
-
     }
   };
 }

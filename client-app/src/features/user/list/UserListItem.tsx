@@ -1,7 +1,6 @@
 import React from "react";
 import { Item, Button, Segment, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { observer } from "mobx-react-lite";
 import { IUserItem } from "../../../app/models/user";
 
 const UserListItem: React.FC<{ user: IUserItem }> = ({ user }) => {
@@ -36,4 +35,4 @@ const UserListItem: React.FC<{ user: IUserItem }> = ({ user }) => {
   );
 };
 
-export default observer(UserListItem);
+export default UserListItem;

@@ -23,4 +23,3 @@ export interface IUserItem {
   email?: string;
   id: number;
 }
-

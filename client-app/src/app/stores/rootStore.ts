@@ -5,7 +5,7 @@ import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import PacienteStore from "./pacienteStore";
 import VagaStore from "./vagaStore";
-import NotificationStore from "./notificationStore"
+import NotificationStore from "./notificationStore";
 
 configure({ enforceActions: "always" });
 

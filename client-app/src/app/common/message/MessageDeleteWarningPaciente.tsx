@@ -19,7 +19,9 @@ export const MessageDeleteWarningPaciente: React.FC<RouteComponentProps<
   }
   return (
     <Message warning>
-      <Message.Header>Tem certeza que deseja excluir o paciente? !!!</Message.Header>
+      <Message.Header>
+        Tem certeza que deseja excluir o paciente? !!!
+      </Message.Header>
       <br />
       <Button
         as={Link}

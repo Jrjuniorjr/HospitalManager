@@ -13,7 +13,7 @@ const validate = combineValidators({
   email: isRequired("email"),
   cpf: isRequired("cpf"),
   telefone: isRequired("telefone"),
-  dataNascimento: isRequired("data de nascimento")
+  dataNascimento: isRequired("data de nascimento"),
 });
 
 interface DetailParams {
@@ -65,11 +65,7 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
             validate={validate}
             initialValues={paciente}
             onSubmit={handleFinalFormSubmit}
-            render={({
-              handleSubmit,
-              invalid,
-              pristine,
-            }) => (
+            render={({ handleSubmit, invalid, pristine }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
                   name="nome"
@@ -104,7 +100,7 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                   component={TextInput}
                 />
                 <Divider />
-               
+
                 <Button
                   loading={submitting}
                   disabled={loading || invalid || pristine}

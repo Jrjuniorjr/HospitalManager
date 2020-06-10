@@ -41,8 +41,10 @@ const VagaPacienteForm = () => {
       dataNascimento: "",
     };
     vaga.paciente = paciente;
-    editVaga(vaga).then(setError(null))
-      .then(() => rootStore.modalStore.closeModal()).catch(error => setError(error));
+    editVaga(vaga)
+      .then(setError(null))
+      .then(() => rootStore.modalStore.closeModal())
+      .catch((error) => setError(error));
   };
   if (loading) {
     return <LoadingComponent content="Aguarde..." />;
@@ -70,7 +72,7 @@ const VagaPacienteForm = () => {
             component={TextInput}
             placeholder="CPF do Paciente"
           />
-          {error && (<ErrorMessage error={error} text={error.data.message}/>)}
+          {error && <ErrorMessage error={error} text={error.data.message} />}
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             content="Vincular"

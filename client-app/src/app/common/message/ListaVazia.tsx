@@ -1,6 +1,5 @@
 import React from "react";
 import { Message } from "semantic-ui-react";
-import { observer } from "mobx-react-lite";
 export const ListaVazia = () => {
   return (
     <Message warning>
@@ -9,4 +8,4 @@ export const ListaVazia = () => {
     </Message>
   );
 };
-export default observer(ListaVazia);
+export default ListaVazia;

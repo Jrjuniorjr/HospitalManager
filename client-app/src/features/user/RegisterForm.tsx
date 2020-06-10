@@ -18,8 +18,12 @@ import { observer } from "mobx-react-lite";
 const validate = combineValidators({
   username: composeValidators(
     isRequired("username"),
-    hasLengthLessThan(20)({message:"username nao pode ter mais que 20 letras."}),
-    hasLengthGreaterThan(3)({message:"username nao pode ter menos de 3 letras."})
+    hasLengthLessThan(20)({
+      message: "username nao pode ter mais que 20 letras.",
+    }),
+    hasLengthGreaterThan(3)({
+      message: "username nao pode ter menos de 3 letras.",
+    })
   )(),
   email: isRequired("email"),
   password: isRequired("password"),

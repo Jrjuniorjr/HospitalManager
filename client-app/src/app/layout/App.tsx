@@ -108,7 +108,6 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   path={"/notification"}
                   component={NotificationList}
                 />
-                
 
                 <Route path="/notauthorized" component={NotAuthorized} />
 

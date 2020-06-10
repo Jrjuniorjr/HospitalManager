@@ -60,7 +60,9 @@ export const MessageDeleteWarningVaga: React.FC<RouteComponentProps<
   } else {
     return (
       <Message warning>
-        <Message.Header>Tem certeza que deseja excluir a vaga? !!!</Message.Header>
+        <Message.Header>
+          Tem certeza que deseja excluir a vaga? !!!
+        </Message.Header>
         <br />
         <Button
           content="Sim"

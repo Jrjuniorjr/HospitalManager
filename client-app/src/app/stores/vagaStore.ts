@@ -20,11 +20,10 @@ export default class VagaStore {
   @observable submitting = false;
   @observable vagasIsDisponiveisVisible = false;
 
-  @computed get isVagaRegistryEmpty(){
-    if(this.vagaRegistry.size > 0){
+  @computed get isVagaRegistryEmpty() {
+    if (this.vagaRegistry.size > 0) {
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
@@ -142,7 +141,6 @@ export default class VagaStore {
       });
       console.log(error);
       throw error;
-
     }
   };
 }

@@ -15,10 +15,12 @@ const TextInput: React.FC<IProps> = ({
 }) => {
   return (
     <Form.Field error={touched && !!error} type={type} width={width}>
-        <input {...input} placeholder={placeholder} />
-        {touched && error && (
-            <Label basic color="red">{error}</Label>
-        )}
+      <input {...input} placeholder={placeholder} />
+      {touched && error && (
+        <Label basic color="red">
+          {error}
+        </Label>
+      )}
     </Form.Field>
   );
 };

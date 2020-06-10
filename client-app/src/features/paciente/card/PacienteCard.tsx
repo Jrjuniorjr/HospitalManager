@@ -6,7 +6,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { PacienteFormValues } from "../../../app/models/paciente";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import {history} from "../../.."
+import { history } from "../../..";
 
 interface DetailParams {
   cpf?: string;
@@ -48,7 +48,8 @@ const PacienteCardItem: React.FC<RouteComponentProps<DetailParams>> = ({
         <Icon name="address card" /> CPF: {paciente.cpf}
       </Segment>
       <Segment>
-        <Icon name="calendar alternate outline" /> Data de Nascimento: {paciente.dataNascimento}
+        <Icon name="calendar alternate outline" /> Data de Nascimento:{" "}
+        {paciente.dataNascimento}
       </Segment>
       <Segment>
         <Icon name="mail" /> Email: {paciente.email}

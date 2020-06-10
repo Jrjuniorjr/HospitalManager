@@ -18,15 +18,13 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
           <Item>
             <Item.Content>
               <Item.Header as="a">
-                <Icon name="bed"/>
-                {vaga.numeroQuarto}</Item.Header>
+                <Icon name="bed" />
+                {vaga.numeroQuarto}
+              </Item.Header>
             </Item.Content>
           </Item>
         </Item.Group>
       </Segment>
-      {/* <Segment>
-        <Icon name="hospital" /> {vaga.user!.username}
-      </Segment> */}
       <Segment>
         <Icon name="question circle outline" /> Situação: {vaga.situacao}
       </Segment>

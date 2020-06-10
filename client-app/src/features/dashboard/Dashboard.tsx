@@ -1,19 +1,8 @@
-import React, { useContext, useEffect, Suspense, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { history } from "../..";
 import { RootStoreContext } from "../../app/stores/rootStore";
-import {
-  Bar,
-  Line,
-  Pie,
-  Doughnut,
-  Radar,
-  Scatter,
-  Bubble,
-  HorizontalBar,
-} from "react-chartjs-2";
-import { Button } from "semantic-ui-react";
+import { Bar, Line, Doughnut } from "react-chartjs-2";
 import { observer } from "mobx-react-lite";
-import { count, countReset } from "console";
 
 const Dashboard = () => {
   const rootStore = useContext(RootStoreContext);
@@ -68,7 +57,6 @@ const Dashboard = () => {
   };
 
   const buildChartCovidBrasil = (resp: any) => {
-    console.log(resp);
     let labels: any[] = [];
     let data: any[] = [];
     let dataSetes: any[] = [];
@@ -120,7 +108,6 @@ const Dashboard = () => {
     );
     data = [];
     dataSetes.push(set);
-    console.log(dataSetes);
 
     chartCovidData(labels, dataSetes);
   };
@@ -138,7 +125,6 @@ const Dashboard = () => {
   };
 
   const buildChartCovidPernambuco = (resp: any) => {
-    console.log(resp);
     let labels: any[] = [];
     let data: any[] = [];
     let dataSetes: any[] = [];
@@ -158,9 +144,6 @@ const Dashboard = () => {
       },
     ];
 
-    console.log(labels);
-    console.log(dataSetes);
-
     chartCovidDataPernambuco(labels, dataSetes);
   };
 
@@ -177,7 +160,6 @@ const Dashboard = () => {
   };
 
   const buildChartCovidPlaneta = (resp: any) => {
-    console.log(resp);
     let labels: any[] = [];
     let data: any[] = [];
     let dataSetes: any[] = [];
@@ -203,10 +185,6 @@ const Dashboard = () => {
     data = [];
     dataSetes.push(set);
 
-    console.log(labels);
-
-    console.log(dataSetes);
-
     chartCovidDataPlaneta(labels, dataSetes);
   };
 
@@ -227,8 +205,6 @@ const Dashboard = () => {
     );
   };
   const buildChartHistoricoVagas = (resp: any[]) => {
-    console.log(resp);
-
     let counts: any[] = [];
     let dates: any[] = [];
 
@@ -249,9 +225,6 @@ const Dashboard = () => {
         data: counts,
       },
     ];
-
-    console.log(counts);
-    console.log(dates);
 
     chartHistoricoVagas(dates, datasets);
   };
@@ -278,12 +251,14 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   };
 
-  useEffect(() => {
+  const loadData = () => {
     fetchBrasilData();
     fetchPernambucoData();
     fetchPernambucoPlaneta();
     fetchHistoricoVagas();
-  }, []);
+  };
+
+  useEffect(loadData, []);
 
   if (!rootStore.commonStore.token) {
     history.push("/notauthorized");
