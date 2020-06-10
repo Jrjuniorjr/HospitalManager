@@ -9,6 +9,7 @@ import {
   Radar,
   Scatter,
   Bubble,
+  HorizontalBar,
 } from "react-chartjs-2";
 import { Button } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
@@ -298,7 +299,7 @@ const Dashboard = () => {
         }}
       >
         <Bar
-          options={{ responsive: true }}
+          options={{ responsive: true, maintainAspectRatio: true }}
           redraw={true}
           data={historicoVaga}
         />
