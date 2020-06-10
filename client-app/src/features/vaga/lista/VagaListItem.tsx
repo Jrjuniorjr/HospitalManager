@@ -34,9 +34,6 @@ const VagaListItem: React.FC<{ vaga: IVaga }> = ({ vaga }) => {
       <Segment>
         <Icon name="comment alternate outline" /> Descrição: {vaga.descricao}
       </Segment>
-      <Segment>
-        <Icon name="calendar alternate outline" /> Data de alocação: {vaga.dataAlocacao}
-      </Segment>
       {vaga.paciente && (
         <Segment>
           <Icon name="user" /> {vaga.paciente.nome}
