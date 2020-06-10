@@ -22,7 +22,7 @@ export default class NotificationStore {
         this.notificationRegistry = new Map();
         try {
             const notifications = await agent.Notification.listEnviados(
-                parseInt(window.localStorage.getItem("id"))
+                parseInt(window.localStorage.getItem("id")!)
                 );
             runInAction("loading notifications", () => {
                 notifications.forEach((notification) => {
@@ -44,7 +44,7 @@ export default class NotificationStore {
         this.notificationRegistry = new Map();
         try {
             const notifications = await agent.Notification.listRecebidos(
-                parseInt(window.localStorage.getItem("id"))
+                parseInt(window.localStorage.getItem("id")!)
                 );
             runInAction("loading notifications", () => {
                 notifications.forEach((notification) => {

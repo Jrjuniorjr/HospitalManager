@@ -29,9 +29,9 @@ export default class CommonStore {
     );
     reaction(
       () => this.id,
-      (idHospital) => {
-        if (idHospital) {
-          window.localStorage.setItem("id", idHospital);
+      (id) => {
+        if (id) {
+          window.localStorage.setItem("id", id);
         } else {
           window.localStorage.removeItem("id");
         }

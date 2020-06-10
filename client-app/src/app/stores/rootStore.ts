@@ -23,6 +23,7 @@ export class RootStore {
     this.modalStore = new ModalStore(this);
     this.pacienteStore = new PacienteStore(this);
     this.vagaStore = new VagaStore(this);
+    this.notificationStore = new NotificationStore(this);
   }
 }
 
