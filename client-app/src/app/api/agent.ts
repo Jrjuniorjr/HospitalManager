@@ -54,6 +54,7 @@ const User = {
     requests.post("/api/auth/signin", user),
   register: (user: IUserFormValues) => requests.post("/api/auth/signup", user),
   listAll: (): Promise<IUserItem[]> => requests.get("/api/user/all"),
+  findById: (id: number): Promise<IUser> => requests.get(`/api/user/${id}`),
 };
 
 const Paciente = {
