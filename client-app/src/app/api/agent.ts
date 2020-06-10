@@ -76,7 +76,7 @@ const Vaga = {
 
 const Notification = {
   listEnviados: (id: number): Promise<INotification[]> => requests.get(`/notification/notificacoesEnviadas/${id}`),
-  listRecebidos: (id: number): Promise<INotification[]> => requests.get(`/notification/notificacoesRecebidas/${id}`),
+  listRecebidos: (id: number): Promise<INotification[]> => requests.get(`/notification/notificacoesRecebedidas/${id}`),
   create: (obj: INotification) => requests.post("/notification/notificar", obj),
 }
 
