@@ -21,8 +21,11 @@ import VagaForm from "../../features/vaga/form/VagaForm";
 import PacienteCardItem from "../../features/paciente/card/PacienteCard";
 import { MessageDeleteWarningPaciente } from "../common/message/MessageDeleteWarningPaciente";
 import { MessageDeleteWarningVaga } from "../common/message/MessageDeleteWarningVaga";
+import NotificationForm from "../../features/notification/NotificationForm";
+import NotificationDashboard from "../../features/notification/NotificationDashboard";
 import NotAuthorized from "./NotAuthorized";
 import Dashboard from "../../features/dashboard/Dashboard";
+import NotificationList from "../../features/notification/NotificationList";
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -89,6 +92,24 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   path={"/pesquisar/:cpf"}
                   component={PacienteCardItem}
                 />
+                <Route
+                  key={location.key}
+                  path={"/notificar/:id"}
+                  component={NotificationForm}
+                />
+                <Route
+                  exact
+                  path="/notificationDashboard"
+                  component={NotificationDashboard}
+                />
+                <Route
+                  key={location.key}
+                  exact
+                  path={"/notification"}
+                  component={NotificationList}
+                />
+                
+
                 <Route path="/notauthorized" component={NotAuthorized} />
 
                 <Route component={NotFound} />

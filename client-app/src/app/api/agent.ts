@@ -1,9 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { history } from "../..";
 import { toast } from "react-toastify";
-import { IUser, IUserFormValues } from "../models/user";
+import { IUser, IUserFormValues, IUserItem } from "../models/user";
 import { IPaciente } from "../models/paciente";
 import { IVaga } from "../models/vaga";
+import { INotification } from "../models/notification";
 
 axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
 
@@ -51,6 +52,8 @@ const User = {
   login: (user: IUserFormValues): Promise<IUser> =>
     requests.post("/api/auth/signin", user),
   register: (user: IUserFormValues) => requests.post("/api/auth/signup", user),
+  listAll: (): Promise<IUserItem[]> => requests.get("/api/user/all"),
+  findById: (id: number): Promise<IUser> => requests.get(`/api/user/${id}`),
 };
 
 const Paciente = {
@@ -71,8 +74,15 @@ const Vaga = {
   delete: (id: number) => requests.del(`/vaga/remover/${id}`),
 };
 
+const Notification = {
+  listEnviados: (id: number): Promise<INotification[]> => requests.get(`/notification/notificacoesEnviadas/${id}`),
+  listRecebidos: (id: number): Promise<INotification[]> => requests.get(`/notification/notificacoesRecebedidas/${id}`),
+  create: (obj: INotification) => requests.post("/notification/notificar", obj),
+}
+
 export default {
   User,
   Paciente,
   Vaga,
+  Notification,
 };
