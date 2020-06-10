@@ -14,9 +14,20 @@ export default class UserStore {
   @observable user: IUser | null = null;
   @observable nomeHospital: string | null = null;
   @observable id: number | null = null;
+  @observable userRegistry = new Map();
+  @observable loadingInitial = false;
 
   @computed get isLoggedIn() {
     return !!this.user;
+  }
+
+  @computed get isUserRegistryEmpty(){
+    if(this.userRegistry.size > 0){
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 
   @action login = async (values: IUserFormValues) => {
@@ -64,5 +75,40 @@ export default class UserStore {
     this.user = null;
     this.id = null;
     history.push("/");
+  };
+
+  @action loadUsers = async () => {
+    this.loadingInitial = true;
+    this.userRegistry = new Map();
+    try {
+      const users = await agent.User.listAll();
+      runInAction("loading Users", () => {
+        users.forEach((user) => {
+          this.userRegistry.set(user.id, user);
+        });
+        this.loadingInitial = false;
+      });
+    } catch (error) {
+      runInAction("load user error", () => {
+        this.loadingInitial = false;
+      });
+      console.log(error);
+    }
+  };
+
+  @action loadUser = async (id: number) => {
+    this.loadingInitial = true;
+    try {
+      let user = await agent.User.findById(id);
+      runInAction("getting user", () => {
+        this.loadingInitial = false;
+      });
+      return user;
+    } catch (error) {
+      runInAction("get user error", () => {
+        this.loadingInitial = false;
+      });
+      console.log(error);
+    }
   };
 }
