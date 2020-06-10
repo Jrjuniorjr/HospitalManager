@@ -16,6 +16,11 @@ export default class NotificationStore {
     @observable loadingInitial = false;
     @observable notificationRegistry = new Map();
     @observable submitting = false;
+    @observable isSent = false;
+
+    @action setIsSent= (sent : boolean) => {
+      this.isSent = sent;
+    };
 
     @action loadNotificationsEnviadas = async () => {
         this.loadingInitial = true;
