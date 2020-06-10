@@ -12,12 +12,14 @@ import {
 } from "react-chartjs-2";
 import { Button } from "semantic-ui-react";
 import { observer } from "mobx-react-lite";
+import { count, countReset } from "console";
 
 const Dashboard = () => {
   const rootStore = useContext(RootStoreContext);
   const [covidData, setCovidData] = useState({});
   const [covidDataPernambuco, setCovidDataPernambuco] = useState({});
   const [covidDataPlaneta, setCovidDataPlaneta] = useState({});
+  const [historicoVaga, setHistoricoVaga] = useState({});
 
   const chartCovidData = (labels: any, datasets: any[]) => {
     setCovidData({
@@ -33,6 +35,12 @@ const Dashboard = () => {
   };
   const chartCovidDataPlaneta = (labels: any, datasets: any[]) => {
     setCovidDataPlaneta({
+      labels: labels,
+      datasets: datasets,
+    });
+  };
+  const chartHistoricoVagas = (labels: any, datasets: any[]) => {
+    setHistoricoVaga({
       labels: labels,
       datasets: datasets,
     });
@@ -212,11 +220,68 @@ const Dashboard = () => {
       )
       .catch((err) => console.error(err));
   };
+  const formatDate = (data: any): string => {
+    return (
+      data.split("-")[2] + "-" + data.split("-")[1] + "-" + data.split("-")[0]
+    );
+  };
+  const buildChartHistoricoVagas = (resp: any[]) => {
+    console.log(resp);
+
+    let counts: any[] = [];
+    let dates: any[] = [];
+
+    resp.forEach((item) => {
+      counts.push(item.count);
+
+      dates.push(formatDate(item.data));
+    });
+
+    let datasets: any[] = [
+      {
+        label: "Quantidade de Internados no Hospital",
+        backgroundColor: "rgba(99,255,132,0.4)",
+        borderColor: "rgba(99,255,132,1)",
+        borderWidth: 1,
+        hoverBackgroundColor: "rgba(99,255,132,0.6)",
+        hoverBorderColor: "rgba(99,255,132,1)",
+        data: counts,
+      },
+    ];
+
+    console.log(counts);
+    console.log(dates);
+
+    chartHistoricoVagas(dates, datasets);
+  };
+
+  const fetchHistoricoVagas = () => {
+    fetch(
+      `https://jrjrjrjrjr.herokuapp.com/historico/${window.localStorage.getItem(
+        "id"
+      )}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + window.localStorage.getItem("jwt"),
+        },
+      }
+    )
+      .then((response) =>
+        response.json().then((resp) => {
+          buildChartHistoricoVagas(resp);
+        })
+      )
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     fetchBrasilData();
     fetchPernambucoData();
     fetchPernambucoPlaneta();
+    fetchHistoricoVagas();
   }, []);
 
   if (!rootStore.commonStore.token) {
@@ -226,6 +291,18 @@ const Dashboard = () => {
   return (
     <div>
       <h3>Gráficos do Covid-19</h3>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Bar
+          options={{ responsive: true }}
+          redraw={true}
+          data={historicoVaga}
+        />
+      </div>
       <div
         style={{
           display: "flex",

@@ -24,14 +24,13 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(undefined, (error) => {
-
   if (error.message === "Network Error" && !error.response) {
     toast.error("Network error - make sure API is running!!!");
   }
   if (error.response.status === 404) {
     history.push("/notfound");
   }
-  if(error.response.status === 405){
+  if (error.response.status === 405) {
     toast.error("Paciente ainda está alocado a uma vaga!");
   }
   if (error.response.status === 500) {
