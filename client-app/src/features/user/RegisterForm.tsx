@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Form as FinalForm, Field } from "react-final-form";
 import { Form, Button, Header } from "semantic-ui-react";
 import TextInput from "../../app/common/form/TextInput";
@@ -31,15 +31,17 @@ const validate = combineValidators({
 });
 const RegisterForm = () => {
   const rootStore = useContext(RootStoreContext);
-  const { register } = rootStore.userStore;
+  const { register, loadingInitial } = rootStore.userStore;
+
+  const [error, setError]: any | null = useState(null);
+
+  const handleFinalFormSubmit = (values: IUserFormValues) => {
+     register(values).catch(error => setError(error));
+    }
 
   return (
     <FinalForm
-      onSubmit={(values: IUserFormValues) => {
-        register(values).catch((error) => ({
-          [FORM_ERROR]: error,
-        }));
-      }}
+      onSubmit={handleFinalFormSubmit}
       validate={validate}
       render={({
         handleSubmit,
@@ -70,13 +72,13 @@ const RegisterForm = () => {
             placeholder="Password"
             type="password"
           />
-          {submitError && !dirtySinceLastSubmit && (
-            <ErrorMessage error={submitError} text={submitError.data.message} />
+          {error && !dirtySinceLastSubmit && (
+            <ErrorMessage error={error} text={error.data.message} />
           )}
           <Button
             disabled={(invalid && !dirtySinceLastSubmit) || pristine}
             content="Register"
-            loading={submitting}
+            loading={loadingInitial}
             fluid
             color="teal"
           />

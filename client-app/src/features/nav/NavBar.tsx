@@ -47,7 +47,6 @@ const NavBar: React.FC = () => {
         </Menu.Item>
         {nomeHospital && (
           <Menu.Item position="right">
-            <Icon name="alarm" size="large" />
             <Image avatar spaced="right" src={"/assets/user.png"} />
             <Dropdown pointing="top left" text={nomeHospital}>
               <Dropdown.Menu>

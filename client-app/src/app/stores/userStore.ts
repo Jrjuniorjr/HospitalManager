@@ -31,29 +31,35 @@ export default class UserStore {
 
   @action login = async (values: IUserFormValues) => {
     try {
+      this.loadingInitial = true;
       const user = await agent.User.login(values);
       runInAction(() => {
+        this.loadingInitial = false;
         this.user = user;
       });
-      console.log(user);
       this.rootStore.commonStore.setToken(user.token);
       this.rootStore.commonStore.setNomeHospital(user.nomeHospital);
       this.rootStore.commonStore.setId(user.id.toString());
       this.rootStore.modalStore.closeModal();
       history.push("/dashboard");
     } catch (error) {
+      this.loadingInitial = false;
       throw error;
     }
   };
 
   @action register = async (values: IUserFormValues) => {
     try {
+      this.loadingInitial = true;
       values.roles = [];
       await agent.User.register(values);
-
+      runInAction(() => {
+        this.loadingInitial = false;
+      });
       this.rootStore.modalStore.closeModal();
       history.push("/");
     } catch (error) {
+      this.loadingInitial = false;
       throw error;
     }
   };
