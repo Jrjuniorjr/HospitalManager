@@ -43,7 +43,9 @@ export default class UserStore {
       this.rootStore.modalStore.closeModal();
       history.push("/dashboard");
     } catch (error) {
-      this.loadingInitial = false;
+      runInAction(() => {
+        this.loadingInitial = false;
+      });
       throw error;
     }
   };
@@ -59,7 +61,9 @@ export default class UserStore {
       this.rootStore.modalStore.closeModal();
       history.push("/");
     } catch (error) {
-      this.loadingInitial = false;
+      runInAction(() => {
+        this.loadingInitial = false;
+      });
       throw error;
     }
   };
