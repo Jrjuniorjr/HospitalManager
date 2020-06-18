@@ -6,7 +6,7 @@ import { IPaciente } from "../models/paciente";
 import { IVaga } from "../models/vaga";
 import { INotification } from "../models/notification";
 
-axios.defaults.baseURL = "https://jrjrjrjrjr.herokuapp.com";
+axios.defaults.baseURL = "https://hospitalmanager123.herokuapp.com/";
 
 axios.interceptors.request.use(
   (config) => {
