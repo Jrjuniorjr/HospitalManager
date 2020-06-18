@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../stores/rootStore";
 import { VagasFormValues, SituacaoEnum } from "../../../app/models/vaga";
 import { history } from "../../..";
-import { Form, Header, Button, Message, Icon, Grid } from "semantic-ui-react";
+import { Form, Header, Button, Message, Grid } from "semantic-ui-react";
 import { Form as FinalForm, Field } from "react-final-form";
 import ErrorMessage from "../form/ErrorMessage";
 import TextAreaInput from "../form/TextAreaInput";
@@ -26,6 +26,7 @@ export const MessageDeleteWarningVaga: React.FC<RouteComponentProps<
     loadVaga,
     editVaga,
     deleteVaga,
+    loadingInitial
   } = rootStore.vagaStore;
   const [vaga, setVaga] = useState(new VagasFormValues());
   const [error, setError]: any = useState(null);
@@ -61,7 +62,6 @@ export const MessageDeleteWarningVaga: React.FC<RouteComponentProps<
             validate={validate}
             render={({
               handleSubmit,
-              submitting,
               invalid,
               pristine,
               dirtySinceLastSubmit,
@@ -84,7 +84,7 @@ export const MessageDeleteWarningVaga: React.FC<RouteComponentProps<
                 <Button
                   disabled={(invalid && !dirtySinceLastSubmit) || pristine}
                   content="Liberar vaga"
-                  loading={submitting}
+                  loading={loadingInitial}
                   fluid
                   color="blue"
                 />

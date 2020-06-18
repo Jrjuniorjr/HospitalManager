@@ -88,7 +88,7 @@ const PacienteForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 />
                 <Field
                   name="telefone"
-                  placeholder="+55 (99) 9999-9999"
+                  placeholder="+55DD99999999"
                   value={paciente.telefone}
                   component={TextInput}
                 />

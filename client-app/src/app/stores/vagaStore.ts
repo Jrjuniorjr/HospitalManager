@@ -109,19 +109,20 @@ export default class VagaStore {
   };
 
   @action editVaga = async (vaga: IVaga) => {
-    console.log("VAGA: ", vaga);
-
+    this.loadingInitial = true;
     this.submitting = true;
     try {
       await agent.Vaga.update(vaga);
       runInAction("editing vaga", () => {
         this.submitting = false;
+        this.loadingInitial = false;
       });
       if (this.vagasIsDisponiveisVisible) history.push("/vagaDashboardLivre");
       else history.push("/vagaDashboardOcupada");
     } catch (error) {
       runInAction("edit vaga error", () => {
         this.submitting = false;
+        this.loadingInitial = false;
       });
       throw error;
     }
